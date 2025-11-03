@@ -6,11 +6,11 @@
 
 [link direto para o arquivo](/refatoracao3/depois/dataService.js)
 
-### Criacao de 1 repositorio
+### Criçao de 1 repositorio
 
 [link direto para o repositorio](/refatoracao3/depois/config)
 
-### Criacao de 3 novos arquivos
+### Criçao de 3 novos arquivos
 
 [link direto para o arquivo "contants.js"](/refatoracao3/depois/config/contants.js)
 
