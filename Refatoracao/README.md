@@ -17,7 +17,7 @@ As refatorações foram divididas em duas categorias principais:
 
 A execução do trabalho seguiu um plano de divisão de tarefas onde cada membro da equipe foi responsável por uma parte da implementação e documentação.
 
-## 2. Refatoração em Nível de Design (Pessoa 1)
+## 2. Refatoração em Nível de Design (Arnald Bentes Lucas)
 
 A refatoração de design foi a mudança mais impactante e estrutural do projeto.
 
@@ -107,4 +107,5 @@ A Refatoração 4 (Inverter Variável) ** demonstra perfeitamente o caráter neu
 ## Conclusão (Pessoa 5)
 
 Após a integração de todas as refatorações, a equipe de QA (Pessoa 5) realizou um Teste de Regressão completo. A aplicação manteve 100% do seu comportamento externo observável (cadastro, login, execução
+
 
