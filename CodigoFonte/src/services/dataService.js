@@ -22,6 +22,7 @@ import {
  * @param {string} uid - O ID do usuário (vindo do Firebase Auth).
  * @returns {Promise<object | null>} Os dados do perfil ou null se o documento não for encontrado.
  */
+
 const fetchUserProfile = async (uid) => {
   if (!uid) {
     console.warn("fetchUserProfile chamado sem UID.");
@@ -176,6 +177,31 @@ const fetchProgressSummary = async (uid) => {
   }));
 };
 
+export async function getTerms(pageSize = 9) {
+  const q = query(collection(db, "terms"), orderBy("term"), limit(pageSize));
+  const snapshot = await getDocs(q);
+  const lastDoc = snapshot.docs[snapshot.docs.length - 1];
+  const terms = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+  return { terms, lastDoc };
+}
+
+// Retorna a próxima página de termos
+export async function getTermsAfter(lastVisible, pageSize = 9) {
+  if (!lastVisible) return { terms: [], lastDoc: null };
+
+  const q = query(
+    collection(db, "terms"),
+    orderBy("term"),
+    startAfter(lastVisible),
+    limit(pageSize)
+  );
+
+  const snapshot = await getDocs(q);
+  const lastDoc = snapshot.docs[snapshot.docs.length - 1];
+  const terms = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+  return { terms, lastDoc };
+}
+
 /**
  * Ponto de entrada do serviço de dados (Facade).
  * * Agrupamos todas as funções em um único objeto exportado.
@@ -190,4 +216,7 @@ export const dataService = {
   fetchQuizQuestions,
   saveQuizResult,
   fetchProgressSummary,
+  getTerms, 
+  getTermsAfter
 };
+export default dataService;
