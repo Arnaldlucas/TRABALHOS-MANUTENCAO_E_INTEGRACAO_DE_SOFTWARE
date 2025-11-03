@@ -33,9 +33,9 @@ A refatoração de design foi a mudança mais impactante e estrutural do projeto
 
 Toda a documentação detalhada desta refatoração, incluindo os diagramas "Antes" e "Depois" e o contexto do Firestore, está disponível na pasta `design/`:
 
-* Justificativa Completa: [./design/justificativa_design.md](./design/justificativa_design.md)
-* Diagramas de Classe (Antes e Depois): [./design/diagramas_de_classe.md](./design/diagramas_de_classe.md)
-* Contexto do Firestore: [./design/contexto_do_firestore.md](./design/contexto_do_firestore.md)
+* Justificativa Completa: [./design/justificativa_design.md](./Design/justificativa_design.md)
+* Diagramas de Classe (Antes e Depois): [./design/diagramas_de_classe.md](./Design/diagramas_de_classe.md)
+* Contexto do Firestore: [./design/contexto_do_firestore.md](./Design/contexto_do_firestore.md)
 
 ## 3. Refatorações em Nível de Código
 
@@ -107,3 +107,4 @@ A Refatoração 4 (Inverter Variável) ** demonstra perfeitamente o caráter neu
 ## Conclusão (Pessoa 5)
 
 Após a integração de todas as refatorações, a equipe de QA (Pessoa 5) realizou um Teste de Regressão completo. A aplicação manteve 100% do seu comportamento externo observável (cadastro, login, execução
+
