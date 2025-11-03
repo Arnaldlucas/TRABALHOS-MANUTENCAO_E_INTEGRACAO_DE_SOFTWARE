@@ -1,18 +1,10 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { db } from "./firebase-config";
-// 1. Importe as funções necessárias para a paginação
-import {
-  collection,
-  getDocs,
-  query,
-  orderBy,
-  limit,
-  startAfter,
-} from "firebase/firestore";
+import dataService from "../services/dataService";
+import LoadingState from "../components/LoadingState";
+import ErrorState from "../components/ErrorState";
 import { BookOpenText, Search, Loader, AlertCircle } from "lucide-react";
-
-const PAGE_SIZE = 9; // Quantos termos carregar por vez
+import { TERMS_PAGE_SIZE } from "../config/constants";  
 
 export default function Termos() {
   const [terms, setTerms] = useState([]); // Armazenará os termos carregados
@@ -25,86 +17,45 @@ export default function Termos() {
   const [hasMore, setHasMore] = useState(true); // Indica se ainda há mais termos para carregar
 
   // 3. Efeito para buscar a PRIMEIRA página de dados
-  useEffect(() => {
-    const fetchInitialTerms = async () => {
-      try {
-        const firstBatch = query(
-          collection(db, "terms"),
-          orderBy("term"),
-          limit(PAGE_SIZE)
-        );
-        const documentSnapshots = await getDocs(firstBatch);
-
-        const termsData = documentSnapshots.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
-
-        setTerms(termsData);
-        // Guarda o último documento da leva para usar como ponto de partida da próxima busca
-        const lastDoc =
-          documentSnapshots.docs[documentSnapshots.docs.length - 1];
-        setLastVisible(lastDoc);
-
-        // Se o número de documentos for menor que o tamanho da página, não há mais o que carregar
-        if (termsData.length < PAGE_SIZE) {
-          setHasMore(false);
-        }
-      } catch (err) {
-        console.error("Erro ao buscar termos:", err);
-        setError(
-          "Não foi possível carregar os termos. Tente novamente mais tarde."
-        );
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchInitialTerms();
-  }, []);
-
-  // 4. Função para carregar as próximas páginas
-  const handleLoadMore = async () => {
-    if (!lastVisible) return; // Não faz nada se não tiver um ponto de partida
-
-    setIsLoadingMore(true);
+useEffect(() => {
+  const fetchInitialTerms = async () => {
     try {
-      const nextBatch = query(
-        collection(db, "terms"),
-        orderBy("term"),
-        startAfter(lastVisible), // Começa a busca DEPOIS do último documento que vimos
-        limit(PAGE_SIZE)
-      );
-
-      const documentSnapshots = await getDocs(nextBatch);
-      const newTermsData = documentSnapshots.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
-
-      // Adiciona os novos termos à lista existente
-      setTerms((prevTerms) => [...prevTerms, ...newTermsData]);
-
-      const lastDoc = documentSnapshots.docs[documentSnapshots.docs.length - 1];
+      const { terms: data, lastDoc } = await dataService.getTerms(TERMS_PAGE_SIZE);
+      setTerms(data);
       setLastVisible(lastDoc);
-
-      if (newTermsData.length < PAGE_SIZE) {
-        setHasMore(false);
-      }
+      if (data.length < TERMS_PAGE_SIZE) setHasMore(false);
     } catch (err) {
-      console.error("Erro ao carregar mais termos:", err);
-      setError("Ocorreu um erro ao carregar mais termos.");
+      console.error("Erro ao buscar termos:", err);
+      setError("Não foi possível carregar os termos. Tente novamente mais tarde.");
     } finally {
-      setIsLoadingMore(false);
+      setLoading(false);
     }
   };
 
-  if (loading) {
-    /* ... JSX do loading ... */
+  fetchInitialTerms();
+}, []);
+
+  // 4. Função para carregar as próximas páginas
+const handleLoadMore = async () => {
+  if (!lastVisible) return;
+
+  setIsLoadingMore(true);
+  try {
+    const { terms: newData, lastDoc } = await dataService.getTermsAfter(lastVisible, TERMS_PAGE_SIZE);
+    setTerms(prev => [...prev, ...newData]);
+    setLastVisible(lastDoc);
+    if (newData.length < TERMS_PAGE_SIZE) setHasMore(false);
+  } catch (err) {
+    console.error("Erro ao carregar mais termos:", err);s
+    setError("Ocorreu um erro ao carregar mais termos.");
+  } finally {
+    setIsLoadingMore(false);
   }
-  if (error) {
-    /* ... JSX do erro ... */
-  }
+};
+
+
+if (loading) return <LoadingState message="Carregando termos..." />;
+if (error) return <ErrorState message={error} onRetry={() => window.location.reload()} />;
 
   return (
     <div className="min-h-screen px-6 pt-28 pb-10 bg-gray-50 text-gray-800">
