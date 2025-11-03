@@ -23,9 +23,9 @@ A refatoração de design foi a mudança mais impactante e estrutural do projeto
 
 ### 2.1. Justificativa Principal (Problema e Solução)
 
-**Problema (Alto Acoplamento):** A arquitetura original do MindTranslate sofria de alto acoplamento **. Os componentes de UI (ex: `Quiz.jsx`, `Termos.jsx`, `Perfil.jsx`) importavam diretamente a instância do `db` do Firestore ** e executavam lógica de consulta (`getDocs`, `query`, `collection`, `setDoc`). Isso violava o Princípio da Responsabilidade Única (SRP) e tornava a manutenção complexa.
+**Problema (Alto Acoplamento):** A arquitetura original do MindTranslate sofria de alto acoplamento . Os componentes de UI (ex: `Quiz.jsx`, `Termos.jsx`, `Perfil.jsx`) importavam diretamente a instância do `db` do Firestore ** e executavam lógica de consulta (`getDocs`, `query`, `collection`, `setDoc`). Isso violava o Princípio da Responsabilidade Única (SRP) e tornava a manutenção complexa.
 
-**Padrão Aplicado (Facade / Repository):** Aplicamos o padrão Facade (Fachada), conforme descrito no material de apoio (Engenharia de Software Moderna, Cap. 6) **. O `dataService.js` foi criado para atuar como uma fachada que abstrai o "subsistema" complexo do Firestore.
+**Padrão Aplicado (Facade / Repository):** Aplicamos o padrão Facade (Fachada), conforme descrito no material de apoio (Engenharia de Software Moderna, Cap. 6) . O `dataService.js` foi criado para atuar como uma fachada que abstrai o "subsistema" complexo do Firestore.
 
 **Contribuição:** A solução desacoplou completamente a UI da fonte de dados. Os componentes React agora chamam métodos simples (ex: `dataService.fetchTerms()`) e não têm conhecimento de como ou onde os dados são armazenados.
 
@@ -39,7 +39,7 @@ Toda a documentação detalhada desta refatoração, incluindo os diagramas "Ant
 
 ## 3. Refatorações em Nível de Código
 
-Foram aplicadas quatro técnicas de refatoração para resolver "code smells" específicos, conforme exigido pelo TP3 **.
+Foram aplicadas quatro técnicas de refatoração para resolver "code smells" específicos, conforme exigido pelo TP3.
 
 ### Refatoração 1: Extrair Componente (Pessoa 3)
 
@@ -107,5 +107,6 @@ A Refatoração 4 (Inverter Variável) ** demonstra perfeitamente o caráter neu
 ## Conclusão (Pessoa 5)
 
 Após a integração de todas as refatorações, a equipe de QA (Pessoa 5) realizou um Teste de Regressão completo. A aplicação manteve 100% do seu comportamento externo observável (cadastro, login, execução
+
 
 
