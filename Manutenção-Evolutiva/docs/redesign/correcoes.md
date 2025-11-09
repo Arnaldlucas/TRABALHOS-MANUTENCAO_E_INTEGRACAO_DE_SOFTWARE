@@ -1,0 +1,1 @@
+Ao final, o grupo deverá documentar as mudanças realizadas, apresentando comparativos claros entre o “antes” e “depois” (prints, pequenos vídeos ou descrições detalhadas). Cada mudança implementada deve estar explicitamente relacionada à heurística que ela atende ou corrige, demonstrando a aplicação consciente dos princípios de usabilidade.
