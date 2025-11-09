@@ -3,7 +3,7 @@
 **AVALIADOR:**
 **DATA:**
 **PRODUTO:**
-**TAREFA:**
+**FUNÇÃO OU TELA:**
 
 ---
 
