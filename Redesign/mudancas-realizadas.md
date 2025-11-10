@@ -12,7 +12,15 @@ Este documento apresenta o comparativo "Antes e Depois" das melhorias de usabili
 
 Cada mudança implementada está explicitamente relacionada à heurística de Nielsen que ela corrige, com base nos problemas identificados na `avaliacao-heuristica.md`.
 
-## 2. Mudanças de Redesign Implementadas
+## 2. Metodologia da Avaliação Heurística
+
+A condução da avaliação baseou-se nas diretrizes metodológicas propostas pelo Nielsen Norman Group (NN/g), conforme descrito no artigo *[How to Conduct a Heuristic Evaluation](https://www.nngroup.com/articles/how-to-conduct-a-heuristic-evaluation/)*.
+
+Como instrumento central para a coleta de dados, foi adotado o *Heuristic Evaluation Workbook* oficial do NN/g. Este artefato foi traduzido para o português e adaptado pela equipe para o formato Markdown.
+
+Essa adaptação teve como objetivo facilitar o registro sistemático e o rastreamento das violações de usabilidade identificadas nas telas do sistema, servindo como o principal artefato de documentação dos problemas encontrados.
+
+## 3. Mudanças de Redesign Implementadas
 
 ### Mudança 1: Remoção de Ruído Visual na Tela de Termos
 * **Responsável:**  João Victor
@@ -25,7 +33,7 @@ Cada mudança implementada está explicitamente relacionada à heurística de Ni
 
 **ANTES (Interface com Ruído)**
 
-![Barra de busca desabilitada na tela de Termos](./prints/h8-minimalismo_antes.png)
+![Barra de busca desabilitada na tela de Termos](prints/h8-termos-antes.png)
 
 **DEPOIS (Interface Minimalista)**
 
