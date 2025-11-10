@@ -93,12 +93,12 @@ Para a priorização dos problemas de usabilidade catalogados, foi empregada uma
 
 **ANTES (Linguagem de Programador na UI)**
 
-![Texto '1 quiz(zes)' visível no Dashboard](./prints/h2-linguagem_antes.png)
+![Texto '1 quiz(zes)' visível no Dashboard](./prints/h2-linguagem_antes.jpg)
 
 **DEPOIS (Linguagem Natural e Fluida)**
 
-![Texto corrigido para '1 quiz' (singular) no Dashboard](./prints/h2-linguagem_depois.png)
-![Texto corrigido para '2 quizzez' (Plural) no Dashboard](./prints/h2-linguagem_depois1.png)
+![Texto corrigido para '1 quiz' (singular) no Dashboard](./prints/h2-linguagem_depois.jpg)
+![Texto corrigido para '2 quizzez' (Plural) no Dashboard](./prints/h2-linguagem_depois1.jpg)
 
 ---
 
