@@ -44,11 +44,11 @@ Cada mudança implementada está explicitamente relacionada à heurística de Ni
 
 **ANTES (Ícones Duplicados e Inconsistentes)**
 
-![Ícone de gráfico usado para 'Início' e 'Progressão'](./prints/h4-consistencia_antes.png)
+![Ícone de gráfico usado para 'Início' e 'Progressão'](./prints/h4-consistencia_antes.jpg)
 
 **DEPOIS (Ícones Consistentes e Padrão)**
 
-![Ícone de 'Casa' usado para 'Início', resolvendo a ambiguidade](./prints/h4-consistencia_depois.png)
+![Ícone de 'Casa' usado para 'Início', resolvendo a ambiguidade](./prints/h4-consistencia_depois.jpg)
 
 ---
 
