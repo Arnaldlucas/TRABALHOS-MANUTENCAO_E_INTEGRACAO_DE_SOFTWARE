@@ -82,7 +82,26 @@ Para a priorização dos problemas de usabilidade catalogados, foi empregada uma
 
 ---
 
-### Mudança 4: Validação de Formulário Preditiva e Imediata
+### Mudança 4: Linguagem Natural no Dashboard
+**Responsável:** Victor Gabriel
+**Heurística Corrigida:** #2 - Correspondência entre o Sistema e o Mundo Real.
+**Problema:** O texto no DashBoard.jsx exibia "Você já completou 1 quiz(zes)...".
+**Análise:** A expressão (zes) é um jargão de programador (placeholder) que "vazou" para a interface. A Heurística #2 exige que o sistema "fale a língua do usuário". Esse texto quebra a naturalidade e passa uma impressão de sistema inacabado.
+**Solução (Redesign Aplicado):** Foi implementada uma lógica de pluralização simples (operador ternário) no CodigoFonte/src/pages/DashBoard.jsx. O sistema agora verifica o número e exibe a frase correta e natural: "Você já completou 1 quiz" (singular) ou "Você já completou 5 quizzes" (plural).
+
+#### Evidências:
+
+*ANTES (Linguagem de Programador na UI)*
+
+![Texto '1 quiz(zes)' visível no Dashboard](./prints/h2-linguagem_antes.png)
+
+*DEPOIS (Linguagem Natural e Fluida)*
+
+![Texto corrigido para '1 quiz' (singular) no Dashboard](./prints/h2-linguagem_depois.png)
+
+---
+
+### Mudança 5: Validação de Formulário Preditiva e Imediata
 * **Responsável:** Arnald Bentes Lucas
 * **Heurísticas Corrigidas:** #5 (Prevenção de Erros) e #9 (Ajudar usuários a reconhecer, diagnosticar e recuperar-se de erros).
 * **Problema:** O formulário de cadastro (`Register.jsx`) só informava os erros (ex: "As senhas não coincidem") *depois* que o usuário preenchia todos os campos e clicava em "Cadastrar".
