@@ -1,4 +1,4 @@
-# Manual de Avaliação Heurística
+# Avaliação Heurística
 
 **AVALIADOR: Victor Gabriel Araújo**
 **DATA: 09/11/2025**
