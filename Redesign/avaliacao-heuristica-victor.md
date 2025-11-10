@@ -36,6 +36,19 @@ Substituir o ícone de "Início" no menu superior por um ícone universal de "ca
 
 ## **FUNÇÃO OU TELA: Termos**
 
+## 5. Prevenção de Erros
+
+#### :x: Problemas
+
+Percebemos quando acessamos o ícone de "perfil" e desejamos SAIR do sistema. O sistema não confirma se o usuário realmente deseja sair, pois pode ser um acidente de usabilidade.
+
+![problema H5 na tela de Quiz](<![Imagem do WhatsApp de 2025-11-10 à(s) 09 57 32_2c918dd9](https://github.com/user-attachments/assets/0bbb326a-b92b-4b0b-925a-143825104493)
+>)
+
+#### :white_check_mark: Recomendações
+
+Implementar um aviso de confirmação de saída do sistema, quando o usuário solicitar a saída do sistema.
+
 ## 8. Estética e Design Minimalista
 
 #### :x: Problemas
@@ -52,6 +65,19 @@ Remover esse elemento da tela e deixar o código comentado para desenvolvedores 
 
 ## **FUNÇÃO OU TELA: Quiz**
 
+
+## 1. Correspondência entre o Sistema e o Mundo Real
+
+#### :x: Problemas
+
+Percebemos que as respostas não são contidas identificadores numerados ou alfabético. Esse detalhe pode desorientar a percepção do leitor não acostumados com sistemas de perguntas e respostas.
+
+![problema H1 na tela de Quiz](<![Imagem do WhatsApp de 2025-11-10 à(s) 09 19 27_1f17cf7f](https://github.com/user-attachments/assets/704c05b8-cbfb-4b91-a537-128758e49825)
+>)
+
+#### :white_check_mark: Recomendações
+
+Implementar a estrutura de texto do front-end. Adicionando identicadores para melhoria da visualização das respostas, o usuário de baixo frequência pode ter dificuldades em entender a interface.
 
 ## 3. Controle e Liberdade do Usuário
 
