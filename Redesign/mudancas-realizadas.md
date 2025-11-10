@@ -20,6 +20,8 @@ Como instrumento central para a coleta de dados, foi adotado o *Heuristic Evalua
 
 Essa adaptação teve como objetivo facilitar o registro sistemático e o rastreamento das violações de usabilidade identificadas nas telas do sistema, servindo como o principal artefato de documentação dos problemas encontrados.
 
+Para a priorização dos problemas de usabilidade catalogados, foi empregada uma escala de classificação de severidade. Esta escala, alinhada à metodologia já utilizada na elicitação de requisitos do projeto, categoriza os *issues* em três níveis: **Essencial**, **Importante** e **Desejável**. Isso permite à equipe focar os esforços de correção nos itens de maior impacto para o usuário.
+
 ## 3. Mudanças de Redesign Implementadas
 
 ### Mudança 1: Remoção de Ruído Visual na Tela de Termos
