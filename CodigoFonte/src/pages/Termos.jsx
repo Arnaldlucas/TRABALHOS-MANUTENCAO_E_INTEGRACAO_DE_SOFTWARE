@@ -117,18 +117,6 @@ export default function Termos() {
         {/* TODO: A busca atual (frontend) foi desabilitada devido à paginação.
             A próxima manutenção deve implementar uma busca no servidor (backend)
             usando as capacidades de query do Firestore. */}
-        <div className="relative mb-8">
-          <input
-            type="text"
-            placeholder="A busca será implementada em uma futura versão"
-            disabled
-            className="w-full pl-10 pr-4 py-2 border rounded-full bg-gray-100 cursor-not-allowed"
-          />
-          <Search
-            className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
-            size={20}
-          />
-        </div>
 
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {terms.map((item) => (
