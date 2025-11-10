@@ -27,6 +27,16 @@ A tabela a seguir resume as 4 correções de usabilidade implementadas, a heurí
 
 ---
 
+A tabela a seguir resume as 5 correções de usabilidade implementadas, a heurística violada e a Issue de rastreamento correspondente.
+
+| Responsável | Mudança Implementada | Heurística(s) Violada(s) | Issue Rastreada |
+| :--- | :--- | :--- | :--- |
+| **João Victor** | Remoção de Ruído Visual (Tela Termos) | H8: Estética e Design Minimalista | `#15` |
+| **Nivaldo Yenar** | Correção de Inconsistência (Ícones) | H4: Consistência e Padrões | `#17` |
+| **Nivaldo Yenar** | Adição de "Saída de Emergência" (Quiz) | H3: Controle e Liberdade do Usuário | `#18` |
+| **Victor Gabriel** | Linguagem Natural no Dashboard | H2: Correspondência entre o sistema e o mundo real | `#19` |
+| **Arnald Bentes Lucas**| Validação de Formulário Preditiva | H5: Prevenção de Erros / H9: Recuperação | `#20` |
+
 ## 3. Mudanças de Redesign Implementadas
 
 ### Mudança 1: Remoção de Ruído Visual na Tela de Termos
