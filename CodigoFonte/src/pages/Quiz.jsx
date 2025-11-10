@@ -3,10 +3,18 @@ import { Link } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 import { db } from "./firebase-config";
 import { collection, getDocs, query, doc, setDoc } from "firebase/firestore";
-import { HelpCircle, Loader, AlertCircle, Check, X, Award } from "lucide-react";
+import { 
+  HelpCircle, 
+  Loader, 
+  AlertCircle, 
+  Check, 
+  X, 
+  Award } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 export default function Quiz() {
   const { currentUser } = useAuth();
+  const navigate = useNavigate();
   const [questions, setQuestions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -16,6 +24,10 @@ export default function Quiz() {
   const [isCorrect, setIsCorrect] = useState(null);
   const [score, setScore] = useState(0);
   const [quizFinished, setQuizFinished] = useState(false);
+
+  const handleExit = () => {
+    navigate("/dashboard");
+  };
 
   useEffect(() => {
     const fetchQuestions = async () => {
@@ -151,7 +163,15 @@ export default function Quiz() {
 
   // 5. Finalmente, renderizamos a UI do quiz.
   return (
-    <div className="min-h-screen px-6 pt-28 pb-10 bg-gray-50 text-gray-800">
+    <div className="relative min-h-screen px-6 pt-28 pb-10 bg-gray-50 text-gray-800">
+      <button
+        onClick={handleExit}
+        className="absolute top-6 left-6 p-2 rounded-full hover:bg-gray-200 transition"
+        aria-label="Sair do Quiz"
+      >
+        <X className="w-6 h-6 text-gray-700" />
+      </button>
+
       <div className="max-w-3xl mx-auto">
         <div className="flex items-center gap-3 mb-4">
           <HelpCircle className="text-purple-600 w-6 h-6" />

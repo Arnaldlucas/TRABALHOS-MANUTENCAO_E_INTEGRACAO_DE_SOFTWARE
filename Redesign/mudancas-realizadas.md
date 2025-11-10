@@ -44,11 +44,11 @@ Cada mudança implementada está explicitamente relacionada à heurística de Ni
 
 **ANTES (Ícones Duplicados e Inconsistentes)**
 
-![Ícone de gráfico usado para 'Início' e 'Progressão'](./prints/h4-consistencia_antes.png)
+![Ícone de gráfico usado para 'Início' e 'Progressão'](./prints/h4-consistencia_antes.jpg)
 
 **DEPOIS (Ícones Consistentes e Padrão)**
 
-![Ícone de 'Casa' usado para 'Início', resolvendo a ambiguidade](./prints/h4-consistencia_depois.png)
+![Ícone de 'Casa' usado para 'Início', resolvendo a ambiguidade](./prints/h4-consistencia_depois.jpg)
 
 ---
 
@@ -63,11 +63,11 @@ Cada mudança implementada está explicitamente relacionada à heurística de Ni
 
 **ANTES (Usuário "Preso" no Fluxo do Quiz)**
 
-![Tela do Quiz sem opção de 'Sair' ou 'Voltar'](./prints/h3-liberdade_antes.png)
+![Tela do Quiz sem opção de 'Sair' ou 'Voltar'](./prints/h3-liberdade_antes.jpg)
 
 **DEPOIS (Usuário com Controle e Liberdade)**
 
-![Tela do Quiz com um novo botão 'X' (Sair) visível no canto](./prints/h3-liberdade_depois.png)
+![Tela do Quiz com um novo botão 'X' (Sair) visível no canto](./prints/h3-liberdade_depois.jpg)
 
 ---
 
