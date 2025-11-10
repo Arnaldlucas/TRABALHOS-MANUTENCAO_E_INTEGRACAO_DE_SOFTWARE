@@ -15,7 +15,7 @@ Cada mudança implementada está explicitamente relacionada à heurística de Ni
 ## 2. Mudanças de Redesign Implementadas
 
 ### Mudança 1: Remoção de Ruído Visual na Tela de Termos
-
+* **Responsável:**  João Victor
 * **Heurística Corrigida:** #8 - Estética e Design Minimalista.
 * **Problema:** A tela "Termos" (`Termos.jsx`) exibia uma barra de busca desabilitada com o texto "A busca será implementada em uma futura versão".
 * **Análise:** Esta mensagem é "ruído": é uma nota de desenvolvedor que vazou para a interface do usuário. A Heurística #8 diz que as interfaces não devem conter informações irrelevantes. Mostrar um componente que não funciona polui a tela e diminui a confiança do usuário.
@@ -25,16 +25,16 @@ Cada mudança implementada está explicitamente relacionada à heurística de Ni
 
 **ANTES (Interface com Ruído)**
 
-![Barra de busca desabilitada na tela de Termos](./prints/h8-minimalismo-antes.png)
+![Barra de busca desabilitada na tela de Termos](./prints/h8-minimalismo_antes.png)
 
 **DEPOIS (Interface Minimalista)**
 
-![Tela de Termos limpa, sem a barra de busca](./prints/h8-minimalismo-depois.png)
+![Tela de Termos limpa, sem a barra de busca](./prints/h8-minimalismo_depois.png)
 
 ---
 
 ### Mudança 2: Correção de Inconsistência na Navegação Principal
-
+* **Responsável:** Nivaldo Yenar
 * **Heurística Corrigida:** #4 - Consistência e Padrões.
 * **Problema:** O ícone do link "Início" (gráfico de barras) no menu superior era idêntico ao ícone do card "Progressão de Aprendizado" no Dashboard.
 * **Análise:** A Heurística #4 afirma que os usuários não devem ter que se perguntar se ações ou ícones diferentes significam a mesma coisa. Usar o mesmo ícone (`BarChart3`) para dois destinos diferentes (Navegação para Home vs. Navegação para Progresso) cria confusão e quebra a consistência interna do sistema.
@@ -44,16 +44,16 @@ Cada mudança implementada está explicitamente relacionada à heurística de Ni
 
 **ANTES (Ícones Duplicados e Inconsistentes)**
 
-![Ícone de gráfico usado para 'Início' e 'Progressão'](./prints/h4-consistencia-antes.png)
+![Ícone de gráfico usado para 'Início' e 'Progressão'](./prints/h4-consistencia_antes.png)
 
 **DEPOIS (Ícones Consistentes e Padrão)**
 
-![Ícone de 'Casa' usado para 'Início', resolvendo a ambiguidade](./prints/h4-consistencia-depois.png)
+![Ícone de 'Casa' usado para 'Início', resolvendo a ambiguidade](./prints/h4-consistencia_depois.png)
 
 ---
 
 ### Mudança 3: Adição de "Saída de Emergência" no Quiz
-
+* **Responsável:** Nivaldo Yenar
 * **Heurística Corrigida:** #3 - Controle e Liberdade do Usuário.
 * **Problema:** A tela do `Quiz.jsx` não possuía um botão óbvio para "Sair" ou "Voltar".
 * **Análise:** A Heurística #3 exige que o usuário tenha "saídas de emergência" claramente marcadas para sair de um estado indesejado. Ao entrar no quiz, o usuário ficava "preso" em um fluxo e a única forma de sair era pela navegação principal, o que não é intuitivo para uma tarefa em tela cheia.
@@ -63,16 +63,16 @@ Cada mudança implementada está explicitamente relacionada à heurística de Ni
 
 **ANTES (Usuário "Preso" no Fluxo do Quiz)**
 
-![Tela do Quiz sem opção de 'Sair' ou 'Voltar'](./prints/h3-liberdade-antes.png)
+![Tela do Quiz sem opção de 'Sair' ou 'Voltar'](./prints/h3-liberdade_antes.png)
 
 **DEPOIS (Usuário com Controle e Liberdade)**
 
-![Tela do Quiz com um novo botão 'X' (Sair) visível no canto](./prints/h3-liberdade-depois.png)
+![Tela do Quiz com um novo botão 'X' (Sair) visível no canto](./prints/h3-liberdade_depois.png)
 
 ---
 
 ### Mudança 4: Linguagem Natural no Dashboard
-
+* **Responsável:** Victor Gabriel
 * **Heurística Corrigida:** #2 - Correspondência entre o Sistema e o Mundo Real.
 * **Problema:** O texto no `DashBoard.jsx` exibia "Você já completou 1 quiz(zes)...".
 * **Análise:** A expressão `(zes)` é um jargão de programador (placeholder) que "vazou" para a interface. A Heurística #2 exige que o sistema "fale a língua do usuário". Esse texto quebra a naturalidade e passa uma impressão de sistema inacabado.
@@ -82,17 +82,17 @@ Cada mudança implementada está explicitamente relacionada à heurística de Ni
 
 **ANTES (Linguagem de Programador na UI)**
 
-![Texto '1 quiz(zes)' visível no Dashboard](./prints/h2-linguagem-antes.png)
+![Texto '1 quiz(zes)' visível no Dashboard](./prints/h2-linguagem_antes.png)
 
 **DEPOIS (Linguagem Natural e Fluida)**
 
-![Texto corrigido para '1 quiz' (singular) no Dashboard](./prints/h2-linguagem-depois.png)
+![Texto corrigido para '1 quiz' (singular) no Dashboard](./prints/h2-linguagem_depois.png)
 
 
 ---
 
 ### Mudança 5: Validação de Formulário Preditiva e Imediata
-
+* **Responsável:** Arnald Bentes Lucas
 * **Heurísticas Corrigidas:** #5 (Prevenção de Erros) e #9 (Ajudar usuários a reconhecer, diagnosticar e recuperar-se de erros).
 * **Problema:** O formulário de cadastro (`Register.jsx`) só informava os erros (ex: "As senhas não coincidem") *depois* que o usuário preenchia todos os campos e clicava em "Cadastrar".
 * **Análise:** Isso é um fluxo ineficiente e frustrante. A Heurística #5 (Prevenção de Erros) diz que é melhor *prevenir* o erro. O sistema força o usuário a um envio inválido para só então diagnosticar o problema.
