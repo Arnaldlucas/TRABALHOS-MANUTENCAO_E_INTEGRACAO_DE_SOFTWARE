@@ -20,10 +20,10 @@ A tabela a seguir resume as 4 correções de usabilidade implementadas, a heurí
 
 | Responsável | Mudança Implementada | Heurística(s) Violada(s) | Issue Rastreada |
 | :--- | :--- | :--- | :--- |
-| **João Victor** | Remoção de Ruído Visual (Tela Termos) | H8: Estética e Design Minimalista | `#15`  |
+| **João Victor** | Remoção de Ruído Visual (Tela Termos) | H8: Estética e Design Minimalista | `#15` |
 | **Nivaldo Yenar** | Correção de Inconsistência (Ícones) | H4: Consistência e Padrões | `#17` |
 | **Nivaldo Yenar** | Adição de "Saída de Emergência" (Quiz) | H3: Controle e Liberdade do Usuário | `#18` |
-| **Arnald Bentes Lucas**| Validação de Formulário Preditiva | H5: Prevenção de Erros / H9: Recuperação | `20` |
+| **Arnald Bentes Lucas**| Validação de Formulário Preditiva | H5: Prevenção de Erros / H9: Recuperação | `#20` |
 
 ---
 
@@ -49,7 +49,7 @@ A tabela a seguir resume as 4 correções de usabilidade implementadas, a heurí
 
 ### Mudança 2: Correção de Inconsistência na Navegação Principal
 * **Responsável:** Nivaldo Yenar
-* **Issue Rastreada:** Resolve a Issue `#17` (Substitua o número)
+* **Issue Rastreada:** Resolve a Issue `#17`
 * **Heurística Corrigida:** #4 - Consistência e Padrões.
 * **Problema:** O ícone do link "Início" (gráfico de barras) no menu superior era idêntico ao ícone do card "Progressão de Aprendizado" no Dashboard.
 * **Análise:** A Heurística #4 afirma que os usuários não devem ter que se perguntar se ações diferentes significam a mesma coisa. Usar o mesmo ícone (`BarChart3`) para dois destinos diferentes cria confusão.
@@ -67,7 +67,7 @@ A tabela a seguir resume as 4 correções de usabilidade implementadas, a heurí
 
 ### Mudança 3: Adição de "Saída de Emergência" no Quiz
 * **Responsável:** Nivaldo Yenar
-* **Issue Rastreada:** Resolve a Issue `#18` (Substitua o número)
+* **Issue Rastreada:** Resolve a Issue `#18`
 * **Heurística Corrigida:** #3 - Controle e Liberdade do Usuário.
 * **Problema:** A tela do `Quiz.jsx` não possuía um botão óbvio para "Sair" ou "Voltar".
 * **Análise:** A Heurística #3 exige que o usuário tenha "saídas de emergência" claramente marcadas. Ao entrar no quiz, o usuário ficava "preso" em um fluxo, o que não é intuitivo.
@@ -85,7 +85,7 @@ A tabela a seguir resume as 4 correções de usabilidade implementadas, a heurí
 
 ### Mudança 4: Validação de Formulário Preditiva e Imediata
 * **Responsável:** Arnald Bentes Lucas
-* **Issue Rastreada:** Resolve a Issue `#20` (Substitua o número)
+* **Issue Rastreada:** Resolve a Issue `#20`
 * **Heurísticas Corrigidas:** #5 (Prevenção de Erros) e #9 (Ajudar usuários a reconhecer, diagnosticar e recuperar-se de erros).
 * **Problema:** O formulário de cadastro (`Register.jsx`) só informava os erros (ex: "As senhas não coincidem") *depois* que o usuário clicava em "Cadastrar".
 * **Análise:** Isso é um fluxo ineficiente e frustrante. A Heurística #5 (Prevenção de Erros) diz que é melhor *prevenir* o erro. O sistema força o usuário a um envio inválido para só então diagnosticar o problema.
