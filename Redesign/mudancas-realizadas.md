@@ -2,7 +2,7 @@
 
 **Trabalho:** TP4 - Redesign e Manutenção Evolutiva
 **Projeto:** MindTranslate
-**Equipe:** Arnald, Nivaldo, Victor, Victor Gabriel, Illgner
+**Equipe:** Arnald, Nivaldo, João Victor, Victor Gabriel, Illgner
 
 ---
 
@@ -16,7 +16,7 @@ Cada mudança implementada está explicitamente relacionada à heurística de Ni
 
 A condução da avaliação baseou-se nas diretrizes metodológicas propostas pelo Nielsen Norman Group (NN/g), conforme descrito no artigo *[How to Conduct a Heuristic Evaluation](https://www.nngroup.com/articles/how-to-conduct-a-heuristic-evaluation/)*.
 
-Como instrumento central para a coleta de dados, foi adotado o *Heuristic Evaluation Workbook* oficial do NN/g. Este artefato foi traduzido para o português e adaptado pela equipe para o formato Markdown.
+Como instrumento central para a coleta de dados, foi adotado o *Heuristic Evaluation Workbook* oficial do NN/g. Este artefato foi  traduzido para o português e adaptado pela equipe para o formato Markdown.
 
 Essa adaptação teve como objetivo facilitar o registro sistemático e o rastreamento das violações de usabilidade identificadas nas telas do sistema, servindo como o principal artefato de documentação dos problemas encontrados.
 
@@ -37,7 +37,7 @@ Essa adaptação teve como objetivo facilitar o registro sistemático e o rastre
 
 **DEPOIS (Interface Minimalista)**
 
-![Tela de Termos limpa, sem a barra de busca](./prints/h8-minimalismo_depois.png)
+![Tela de Termos limpa, sem a barra de busca](prints/h8-termos-depois.jpeg)
 
 ---
 
@@ -77,29 +77,10 @@ Essa adaptação teve como objetivo facilitar o registro sistemático e o rastre
 
 ![Tela do Quiz com um novo botão 'X' (Sair) visível no canto](./prints/h3-liberdade_depois.jpg)
 
----
-
-### Mudança 4: Linguagem Natural no Dashboard
-* **Responsável:** Victor Gabriel
-* **Heurística Corrigida:** #2 - Correspondência entre o Sistema e o Mundo Real.
-* **Problema:** O texto no `DashBoard.jsx` exibia "Você já completou 1 quiz(zes)...".
-* **Análise:** A expressão `(zes)` é um jargão de programador (placeholder) que "vazou" para a interface. A Heurística #2 exige que o sistema "fale a língua do usuário". Esse texto quebra a naturalidade e passa uma impressão de sistema inacabado.
-* **Solução (Redesign Aplicado):** Foi implementada uma lógica de pluralização simples (operador ternário) no `CodigoFonte/src/pages/DashBoard.jsx`. O sistema agora verifica o número e exibe a frase correta e natural: "Você já completou 1 quiz" (singular) ou "Você já completou 5 quizzes" (plural).
-
-#### Evidências:
-
-**ANTES (Linguagem de Programador na UI)**
-
-![Texto '1 quiz(zes)' visível no Dashboard](./prints/h2-linguagem_antes.png)
-
-**DEPOIS (Linguagem Natural e Fluida)**
-
-![Texto corrigido para '1 quiz' (singular) no Dashboard](./prints/h2-linguagem_depois.png)
-
 
 ---
 
-### Mudança 5: Validação de Formulário Preditiva e Imediata
+### Mudança 4: Validação de Formulário Preditiva e Imediata
 * **Responsável:** Arnald Bentes Lucas
 * **Heurísticas Corrigidas:** #5 (Prevenção de Erros) e #9 (Ajudar usuários a reconhecer, diagnosticar e recuperar-se de erros).
 * **Problema:** O formulário de cadastro (`Register.jsx`) só informava os erros (ex: "As senhas não coincidem") *depois* que o usuário preenchia todos os campos e clicava em "Cadastrar".
