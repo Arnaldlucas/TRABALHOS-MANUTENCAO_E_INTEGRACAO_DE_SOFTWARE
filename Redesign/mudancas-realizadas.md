@@ -26,11 +26,11 @@ A tabela a seguir resume as 5 correções de usabilidade implementadas, a heurí
 
 | Responsável | Mudança Implementada | Heurística(s) Violada(s) | Issue Rastreada |
 | :--- | :--- | :--- | :--- |
-| **João Victor** | Remoção de Ruído Visual (Tela Termos) | H8: Estética e Design Minimalista | `#15` |
-| **Nivaldo Yenar** | Correção de Inconsistência (Ícones) | H4: Consistência e Padrões | `#17` |
-| **Nivaldo Yenar** | Adição de "Saída de Emergência" (Quiz) | H3: Controle e Liberdade do Usuário | `#18` |
-| **Victor Gabriel** | Linguagem Natural no Dashboard | H2: Correspondência entre o sistema e o mundo real | `#19` |
-| **Arnald Bentes Lucas**| Validação de Formulário Preditiva | H5: Prevenção de Erros / H9: Recuperação | `#20` |
+| **João Victor** | Remoção de Ruído Visual (Tela Termos) | H8: Estética e Design Minimalista |[Issue #16](https://github.com/Arnaldlucas/TRABALHOS-MANUTENCAO_E_INTEGRACAO_DE_SOFTWARE/issues/16) |
+| **Nivaldo Yenar** | Correção de Inconsistência (Ícones) | H4: Consistência e Padrões |[Issue #17](https://github.com/Arnaldlucas/TRABALHOS-MANUTENCAO_E_INTEGRACAO_DE_SOFTWARE/issues/17)|
+| **Nivaldo Yenar** | Adição de "Saída de Emergência" (Quiz) | H3: Controle e Liberdade do Usuário |[Issue #18](https://github.com/Arnaldlucas/TRABALHOS-MANUTENCAO_E_INTEGRACAO_DE_SOFTWARE/issues/18)|
+| **Victor Gabriel** | Linguagem Natural no Dashboard | H2: Correspondência entre o sistema e o mundo real |[Issue #19](https://github.com/Arnaldlucas/TRABALHOS-MANUTENCAO_E_INTEGRACAO_DE_SOFTWARE/issues/19)|
+| **Arnald Bentes Lucas**| Validação de Formulário Preditiva | H5: Prevenção de Erros / H9: Recuperação |[Issue #20](https://github.com/Arnaldlucas/TRABALHOS-MANUTENCAO_E_INTEGRACAO_DE_SOFTWARE/issues/20)|
 
 ## 3. Mudanças de Redesign Implementadas
 
