@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { db } from "./firebase-config";
-// 1. Importe as funções necessárias para a paginação
+import { db } from "./firebase-config"; 
 import {
   collection,
   getDocs,
@@ -9,22 +8,25 @@ import {
   orderBy,
   limit,
   startAfter,
+  DocumentData, // Importe os tipos do Firestore
+  QueryDocumentSnapshot,
 } from "firebase/firestore";
-import { BookOpenText, Search, Loader, AlertCircle } from "lucide-react";
+import { BookOpenText, Loader, AlertCircle } from "lucide-react";
+// 1. Importe nossa interface 'Term' do dataService!
+import { Term } from "../services/dataService"; 
 
-const PAGE_SIZE = 9; // Quantos termos carregar por vez
+const PAGE_SIZE = 9; 
 
 export default function Termos() {
-  const [terms, setTerms] = useState([]); // Armazenará os termos carregados
-  const [loading, setLoading] = useState(true); // Loading inicial da página
-  const [error, setError] = useState(null);
+  // 2. Tipe os estados
+  const [terms, setTerms] = useState<Term[]>([]); 
+  const [loading, setLoading] = useState(true); 
+  const [error, setError] = useState<string | null>(null); 
+  
+  const [lastVisible, setLastVisible] = useState<QueryDocumentSnapshot<DocumentData> | null>(null);
+  const [isLoadingMore, setIsLoadingMore] = useState(false); 
+  const [hasMore, setHasMore] = useState(true); 
 
-  // 2. Novos estados para controlar a paginação
-  const [lastVisible, setLastVisible] = useState(null); // Guarda o "cursor" para o último documento
-  const [isLoadingMore, setIsLoadingMore] = useState(false); // Loading do botão "Carregar Mais"
-  const [hasMore, setHasMore] = useState(true); // Indica se ainda há mais termos para carregar
-
-  // 3. Efeito para buscar a PRIMEIRA página de dados
   useEffect(() => {
     const fetchInitialTerms = async () => {
       try {
@@ -35,18 +37,18 @@ export default function Termos() {
         );
         const documentSnapshots = await getDocs(firstBatch);
 
+        // 3. Afirme o tipo dos dados
         const termsData = documentSnapshots.docs.map((doc) => ({
           id: doc.id,
           ...doc.data(),
-        }));
+        } as Term)); 
 
         setTerms(termsData);
-        // Guarda o último documento da leva para usar como ponto de partida da próxima busca
+        
         const lastDoc =
           documentSnapshots.docs[documentSnapshots.docs.length - 1];
-        setLastVisible(lastDoc);
+        setLastVisible(lastDoc || null); // Garanta que pode ser nulo
 
-        // Se o número de documentos for menor que o tamanho da página, não há mais o que carregar
         if (termsData.length < PAGE_SIZE) {
           setHasMore(false);
         }
@@ -63,30 +65,29 @@ export default function Termos() {
     fetchInitialTerms();
   }, []);
 
-  // 4. Função para carregar as próximas páginas
   const handleLoadMore = async () => {
-    if (!lastVisible) return; // Não faz nada se não tiver um ponto de partida
+    if (!lastVisible) return; 
 
     setIsLoadingMore(true);
     try {
       const nextBatch = query(
         collection(db, "terms"),
         orderBy("term"),
-        startAfter(lastVisible), // Começa a busca DEPOIS do último documento que vimos
+        startAfter(lastVisible), 
         limit(PAGE_SIZE)
       );
 
       const documentSnapshots = await getDocs(nextBatch);
+      // 4. Afirme o tipo dos novos dados
       const newTermsData = documentSnapshots.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),
-      }));
+      } as Term));
 
-      // Adiciona os novos termos à lista existente
       setTerms((prevTerms) => [...prevTerms, ...newTermsData]);
 
       const lastDoc = documentSnapshots.docs[documentSnapshots.docs.length - 1];
-      setLastVisible(lastDoc);
+      setLastVisible(lastDoc || null);
 
       if (newTermsData.length < PAGE_SIZE) {
         setHasMore(false);
@@ -100,10 +101,12 @@ export default function Termos() {
   };
 
   if (loading) {
-    /* ... JSX do loading ... */
+    // ... (Seu JSX de loading)
+    return <div className="flex justify-center items-center min-h-screen"><Loader className="animate-spin text-blue-600" size={40} /></div>;
   }
   if (error) {
-    /* ... JSX do erro ... */
+    // ... (Seu JSX de erro)
+    return <div className="flex flex-col items-center justify-center min-h-screen text-red-600"><AlertCircle size={40} /><p className="mt-4 text-center">{error}</p></div>;
   }
 
   return (
@@ -113,10 +116,6 @@ export default function Termos() {
           <BookOpenText className="text-blue-600 w-6 h-6" />
           <h1 className="text-2xl font-bold">Termos de Programação</h1>
         </div>
-
-        {/* TODO: A busca atual (frontend) foi desabilitada devido à paginação.
-            A próxima manutenção deve implementar uma busca no servidor (backend)
-            usando as capacidades de query do Firestore. */}
 
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {terms.map((item) => (
@@ -135,7 +134,6 @@ export default function Termos() {
           ))}
         </div>
 
-        {/* 5. Botão "Carregar Mais" dinâmico */}
         <div className="mt-12 text-center">
           {hasMore && (
             <button

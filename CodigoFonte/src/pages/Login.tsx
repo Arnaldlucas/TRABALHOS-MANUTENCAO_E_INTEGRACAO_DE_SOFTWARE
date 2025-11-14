@@ -1,7 +1,7 @@
-import { useState } from "react";
+import React, { useState } from "react"; // Importe React
 import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
-import { Loader } from "lucide-react"; // Importamos um ícone para o feedback de loading
+import { Loader } from "lucide-react"; 
 
 export default function Login() {
   const navigate = useNavigate();
@@ -9,19 +9,18 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const [isSubmitting, setIsSubmitting] = useState(false); // 1. Estado para controlar o envio
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleLogin = async (e) => {
+  // Tipando o evento do formulário
+  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError("");
-    setIsSubmitting(true); // Inicia o feedback visual
+    setIsSubmitting(true); 
 
     try {
       await login(email, password);
-      // A navegação só ocorre em caso de sucesso absoluto.
       navigate("/dashboard");
-    } catch (err) {
-      // 2. Tratamento de erro específico baseado no código do Firebase
+    } catch (err: any) { // Use 'any' ou um tipo de erro específico
       console.error("LOGIN: Falha na autenticação:", err.code);
       switch (err.code) {
         case "auth/user-not-found":
@@ -41,7 +40,6 @@ export default function Login() {
           break;
       }
     } finally {
-      // 3. Garante que o estado de envio seja resetado, não importa o resultado.
       setIsSubmitting(false);
     }
   };
@@ -64,7 +62,8 @@ export default function Login() {
               type="email"
               placeholder="voce@exemplo.com"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              // Tipando o evento de change
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
               required
               className="mt-1 w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
             />
@@ -82,7 +81,7 @@ export default function Login() {
               type="password"
               placeholder="********"
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
               required
               className="mt-1 w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
             />
@@ -90,7 +89,6 @@ export default function Login() {
 
           {error && <p className="text-sm text-red-600 text-center">{error}</p>}
 
-          {/* 4. O botão agora é dinâmico e resiliente */}
           <button
             type="submit"
             disabled={isSubmitting}
