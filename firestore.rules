@@ -1,0 +1,39 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Regra 1: Termos e Quizzes são públicos para leitura por qualquer um.
+    // Ninguém pode escrever neles através do cliente.
+    match /terms/{termId} {
+      allow read: if true;
+      allow write: if false; 
+    }
+    match /quizzes/{quizId}/{document=**} {
+      allow read: if true;
+      allow write: if false;
+    }
+
+    // Regra 2: Perfis de Usuário (A regra mais importante)
+    match /users/{userId} {
+      
+      // O usuário só pode ler, criar ou atualizar SEU PRÓPRIO documento.
+      // request.auth.uid é o ID do usuário logado.
+      // userId é o ID do documento que ele está tentando acessar.
+      allow read, create, update: if request.auth != null && request.auth.uid == userId;
+      
+      // Ninguém pode deletar um perfil por enquanto.
+      allow delete: if false;
+
+      // Regra 3: Subcoleção de Progresso
+      match /quizProgress/{progressId} {
+        
+        // O usuário só pode ler e criar progresso para si mesmo.
+        allow read, create: if request.auth != null && request.auth.uid == userId;
+        
+        // Ninguém (nem o usuário) pode atualizar ou deletar um resultado
+        // para garantir a integridade dos registros.
+        allow update, delete: if false;
+      }
+    }
+  }
+}
