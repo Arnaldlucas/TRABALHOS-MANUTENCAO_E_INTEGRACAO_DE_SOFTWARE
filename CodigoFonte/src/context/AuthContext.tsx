@@ -17,6 +17,7 @@ import {
 } from "firebase/auth";
 import { auth } from "../pages/firebase-config";
 
+
 // --- REATORAÇÃO ---
 // A lógica de acesso direto ao Firestore (db, doc, setDoc) foi removida.
 // Este contexto agora delega todas as operações de banco de dados
@@ -25,7 +26,7 @@ import { auth } from "../pages/firebase-config";
 import { dataService } from "../services/dataService";
 
 // Interface que define a "forma" do nosso contexto para o TypeScript
-interface AuthContextType {
+export interface AuthContextType {
   currentUser: User | null;
   loading: boolean;
   login: (email: string, password: string) => Promise<UserCredential>;
@@ -82,7 +83,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     password: string
   ): Promise<UserCredential> {
     try {
-      // Etapa 1: Cria o usuário no serviço de Autenticação
+      // Etapa 1: Cria o usuário
       const userCredential = await createUserWithEmailAndPassword(
         auth,
         email,
@@ -90,22 +91,20 @@ export function AuthProvider({ children }: AuthProviderProps) {
       );
       const user = userCredential.user;
 
-      // Etapa 2: Atualiza o perfil de autenticação (displayName).
-      // Isso é separado do documento do Firestore e é usado pelo próprio Firebase Auth.
+      // Etapa 2: Atualiza o 'displayName' no Auth
       await updateProfile(user, {
         displayName: name,
       });
 
-      // --- REATORAÇÃO ---
-      // Etapa 3: Delega a criação do documento do Firestore para o dataService.
-      // Este componente não tem mais conhecimento sobre 'db', 'doc' ou 'setDoc'.
-      // Isso adere ao Princípio da Responsabilidade Única (SRP).
-      await dataService.createUserProfile(user.uid, name, email);
+      // --- AJUSTE DE REATORAÇÃO ---
+      // A função do dataService agora é mais inteligente.
+      // Ela recebe o objeto 'user' completo.
+      // Isso é mais limpo e desacoplado.
+      await dataService.createUserProfile(user); 
+      // --- FIM DO AJUSTE ---
 
       return userCredential;
     } catch (error) {
-      // O erro é repassado para a UI (ex: página de Registro)
-      // para que ela possa exibir uma mensagem amigável.
       console.error("Erro detalhado no registro (AuthContext):", error);
       throw error;
     }
