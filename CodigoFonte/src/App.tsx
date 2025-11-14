@@ -9,8 +9,7 @@ const PageLoader = () => (
   </div>
 );
 
-// Transforme as importações de páginas em componentes "lazy".
-// O código de cada página só será baixado quando o usuário navegar para ela.
+// Importe as páginas. O TS vai inferir os tipos.
 const DashBoard = lazy(() => import("./pages/DashBoard"));
 const Termos = lazy(() => import("./pages/Termos"));
 const Quiz = lazy(() => import("./pages/Quiz"));
@@ -23,8 +22,6 @@ const ProtectedRoute = lazy(() => import("./components/ProtectedRoute"));
 
 function App() {
   return (
-    // O <Suspense> mostra o 'fallback' (nosso PageLoader) enquanto o
-    // código da página requisitada está sendo baixado.
     <Suspense fallback={<PageLoader />}>
       <Routes>
         {/* Rotas públicas */}
