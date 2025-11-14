@@ -6,7 +6,7 @@
 
 ---
 
-## 1. Visão Sênior de Evolução
+## 1. Visão Evolução
 
 A manutenção evolutiva deste TP foi planejada não apenas para "adicionar funcionalidades", mas para **amadurecer o produto** em pilares críticos de engenharia: Valor de Produto, Conformidade Legal, Segurança e Manutenibilidade.
 
