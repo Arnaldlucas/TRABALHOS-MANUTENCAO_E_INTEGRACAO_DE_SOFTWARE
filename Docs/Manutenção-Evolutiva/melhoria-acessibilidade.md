@@ -1,4 +1,4 @@
-# Justificativa da Melhoria de Acessibilidade A11y (TP4)
+# Justificativa da Melhoria de Acessibilidade (TP4)
 
 **Trabalho:** TP4 - Redesign e Manutenção Evolutiva
 **Projeto:** MindTranslate
@@ -24,8 +24,12 @@ Esta implementação exclui, no mínimo, dois grupos de usuários:
 
 ### 1.3. Solução Implementada (A Correção)
 
-A solução evolutiva consiste em **refatorar o componente para usar HTML semanticamente correto**, tratando as opções como controles interativos:
+A solução evolutiva consiste em **refatorar o componente para usar HTML semanticamente correto** e **garantir um fluxo de foco lógico** para usuários de teclado.
 
-1.  **Semântica:** O `<ul>` será transformado em um `<fieldset>` com um `<legend>` (a pergunta). Cada `<li>` será substituído por um `<button>`. O uso de `<button>` nativo do HTML resolve 90% do problema, pois ele já é focável (`Tab`), ativável (`Enter`/`Espaço`) e anunciado corretamente por leitores de tela.
-2.  **Estado ARIA:** O botão selecionado receberá o atributo `aria-pressed="true"` para informar programaticamente aos leitores de tela qual opção foi escolhida.
-3.  **Feedback Visual:** A estilização de `focus` do Tailwind será aprimorada (`focus:ring-2 focus:ring-offset-2`) para garantir que o foco do teclado seja sempre visível e claro, conforme a WCAG.
+1.  **Semântica Corrigida:** Cada `<li>` de resposta será substituído por um elemento `<button>` nativo. Isso resolve imediatamente a navegabilidade (`Tab`) e a ativação (`Enter`/`Espaço`), além de anunciar o elemento corretamente para leitores de tela ("botão").
+
+2.  **Prevenção de Erros (Estado Desabilitado):** Assim que uma resposta for selecionada (`selectedAnswer` não for nulo), **todos** os botões de opção serão marcados como `disabled`. Isso impede cliques duplos e comunica claramente ao usuário que a ação para aquela pergunta está concluída.
+
+3.  **Fluxo de Foco Eficiente:** No momento em que o usuário seleciona uma resposta, o botão "Próxima Pergunta" aparece. Para evitar que o usuário de teclado tenha que pressionar `Tab` desnecessariamente, vamos mover o foco **programaticamente** para o botão "Próxima Pergunta" assim que ele for renderizado.
+
+4.  **Feedback Visual (Focus State):** A estilização de foco do Tailwind (`focus:ring-2 focus:ring-offset-2`) será adicionada a todos os botões (opções e "Próxima") para garantir que o usuário saiba exatamente onde está na página.
