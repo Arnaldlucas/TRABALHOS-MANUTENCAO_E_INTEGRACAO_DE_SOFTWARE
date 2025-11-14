@@ -1,4 +1,4 @@
-# Justificativa da Melhoria de Acessibilidade (TP4)
+# Justificativa da Melhoria de Acessibilidade A11y (TP4)
 
 **Trabalho:** TP4 - Redesign e Manutenção Evolutiva
 **Projeto:** MindTranslate
