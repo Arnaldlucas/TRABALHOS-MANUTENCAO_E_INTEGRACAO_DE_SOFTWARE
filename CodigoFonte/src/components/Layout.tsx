@@ -10,9 +10,19 @@ import {
   Brain,
   Menu,
   X,
+  LucideIcon, // Importe o tipo LucideIcon
 } from "lucide-react";
+import React from "react"; // Importe React
 
-const NavItem = ({ to, icon: Icon, children, onClick }) => (
+// 1. Defina o tipo das props do NavItem
+interface NavItemProps {
+  to: string;
+  icon: LucideIcon;
+  children: React.ReactNode;
+  onClick?: () => void;
+}
+
+const NavItem = ({ to, icon: Icon, children, onClick }: NavItemProps) => (
   <NavLink
     to={to}
     onClick={onClick}
@@ -39,18 +49,18 @@ export default function Layout() {
     }
   };
 
+  // 2. O useAuth agora é tipado (currentUser pode ser null)
+  // O ProtectedRoute já garante que currentUser não será null aqui,
+  // mas o TypeScript não sabe disso, então checamos.
   if (!currentUser) {
     return null;
   }
 
-  // Extrai o primeiro nome para uma saudação mais curta no dropdown.
   const userFirstName =
-    currentUser.displayName?.split(" ")[0] || currentUser.email.split("@")[0];
+    currentUser.displayName?.split(" ")[0] || currentUser.email?.split("@")[0] || "Usuário";
 
   return (
-    // 1. A cor de fundo foi REMOVIDA daqui. Agora é global.
     <div className="min-h-screen flex flex-col text-gray-800">
-      {/* O header agora tem um leve backdrop-blur para um efeito mais moderno */}
       <header className="bg-white/80 backdrop-blur-sm shadow-sm fixed top-0 w-full z-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between">
           <Link to="/dashboard" className="flex items-center space-x-3">
@@ -80,7 +90,6 @@ export default function Layout() {
                               invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-all duration-200 z-30"
               >
                 <div className="p-2">
-                  {/* 2. Dados do dropdown agora são dinâmicos */}
                   <p className="font-semibold truncate">{userFirstName}</p>
                   <p className="text-gray-500 text-xs mb-2 truncate">
                     {currentUser.email}
@@ -144,12 +153,10 @@ export default function Layout() {
         )}
       </header>
 
-      {/* 3. A classe 'flex-1' garante que o main ocupe todo o espaço vago, empurrando o footer para baixo */}
       <main className="flex-1 pt-20">
         <Outlet />
       </main>
 
-      {/* 4. O footer agora não precisa de margem, pois o flexbox o posiciona corretamente. */}
       <footer className="bg-white border-t py-6 text-center text-sm text-gray-500">
         <p>
           &copy; {new Date().getFullYear()} MindTranslate. Todos os direitos
