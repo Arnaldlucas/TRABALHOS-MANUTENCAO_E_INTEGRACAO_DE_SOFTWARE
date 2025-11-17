@@ -48,7 +48,7 @@ A lógica foi movida para um *hook* `useWordOfDay.ts` e um novo componente de UI
 
 * **Responsável:** Victor Gabriel
 * **Justificativa:** Conforme `planejamento-da-evolucao.md`, esta *feature* evolui a conformidade com a LGPD, adicionando o "direito de ser esquecido" ao perfil.
-* **Issue Rastreada:** `(link da issue aqui)`
+* **Pull Request:** [#32](https://github.com/Arnaldlucas/TRABALHOS-MANUTENCAO_E_INTEGRACAO_DE_SOFTWARE/pull/32)
 
 ### ANTES (Perfil sem Exclusão)
 
