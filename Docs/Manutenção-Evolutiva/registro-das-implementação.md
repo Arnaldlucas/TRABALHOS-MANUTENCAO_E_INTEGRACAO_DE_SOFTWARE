@@ -54,13 +54,15 @@ A lógica foi movida para um *hook* `useWordOfDay.ts` e um novo componente de UI
 
 A página `Perfil.jsx` não oferecia ao usuário a opção de remover sua própria conta.
 
-*(Victor Gabriel: Insira aqui um print do `Perfil.jsx` antigo)*
+<img width="1591" height="957" alt="Perfil-antes" src="https://github.com/user-attachments/assets/5242a8c5-3ecb-4fcc-b501-bc0abdedf30f" />
 
 ### DEPOIS (Perfil com Opção de Exclusão)
 
-Foi adicionado um "Botão de Perigo" que, através de um *hook* `useDeleteAccount.ts`, orquestra a remoção do usuário no Auth e no Firestore.
+Migrei a página de Perfil para TypeScript (.tsx) e implementei a funcionalidade de exclusão de conta através de um novo hook isolado, o useDeleteAccount.ts. A interface recebeu um botão de exclusão com modal de confirmação e feedback visual, enquanto a lógica gerencia a remoção segura dos dados no Firebase (Auth e Firestore) de forma independente do serviço principal, evitando conflitos de código.
 
-*(Victor Gabriel: Insira aqui um print do `Perfil.tsx` novo com o botão/modal, e um `diff` de código do `useDeleteAccount.ts`)*
+<img width="1591" height="957" alt="Perfil-depois" src="https://github.com/user-attachments/assets/e3baf767-c27b-4932-beda-6d0177dc371f" />
+
+<img width="1591" height="957" alt="Perfil-depois-2" src="https://github.com/user-attachments/assets/699841d4-9bdd-44fe-a9eb-1554702a3ead" />
 
 ---
 
