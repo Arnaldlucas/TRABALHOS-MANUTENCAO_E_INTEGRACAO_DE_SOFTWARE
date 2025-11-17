@@ -82,8 +82,7 @@ export default function Layout() {
 
           <div className="flex items-center gap-4">
             <div className="relative group">
-              <button className="flex items-center space-x-2 p-2 rounded-full hover:bg-gray-200/60 transition-colors"
-              aria-label="Abrir menu do usuário">
+              <button className="flex items-center space-x-2 p-2 rounded-full hover:bg-gray-200/60 transition-colors">
                 <User size={20} />
               </button>
               <div
