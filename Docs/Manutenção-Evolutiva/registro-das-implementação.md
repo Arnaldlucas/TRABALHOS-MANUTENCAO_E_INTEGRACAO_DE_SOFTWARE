@@ -6,7 +6,7 @@ Este documento registra o "Antes e Depois" de cada funcionalidade e melhoria imp
 
 ## 1. Melhoria de Acessibilidade (A11y): Navegação por Teclado no Quiz
 
-* **Responsável:** Nivaldo
+* **Responsável:** Joao Victor
 * **Justificativa:** Conforme documentado em `melhoria-acessibilidade.md`, a funcionalidade principal do quiz era inacessível para navegação por teclado.
 * **Issue Rastreada:** `(link da issue aqui)`
 
@@ -26,21 +26,107 @@ O elemento foi refatorado para um `<button>`, que nativamente suporta foco e ati
 
 ## 2. Funcionalidade 1: "Palavra do Dia" no Dashboard
 
-* **Responsável:** João Victor
+* **Responsável:** Nivaldo Yenar
 * **Justificativa:** Conforme `planejamento-da-evolucao.md`, esta *feature* evolui a UI do `DashBoard.jsx` para ser mais dinâmica e aumentar o engajamento diário.
-* **Issue Rastreada:** `(link da issue aqui)`
+* **Pull Request:** [#37](https://github.com/Arnaldlucas/TRABALHOS-MANUTENCAO_E_INTEGRACAO_DE_SOFTWARE/pull/37)
 
 ### ANTES (Dashboard Estático)
 
 O Dashboard era estático e apenas exibia os cards de navegação.
 
-*(João Victor: Insira aqui um print do `DashBoard.jsx` antigo)*
+![](https://github.com/user-attachments/assets/dcf9a652-8c2b-49f3-9b84-710762855bc1)
+
 
 ### DEPOIS (Dashboard Dinâmico com "Palavra do Dia")
 
 A lógica foi movida para um *hook* `useWordOfDay.ts` e um novo componente de UI renderiza a palavra do dia, melhorando a interface.
 
-*(João Victor: Insira aqui um print do `DashBoard.tsx` novo, com o card "Palavra do Dia" visível, e um `diff` de código do `useWordOfDay.ts`)*
+![](https://github.com/user-attachments/assets/8019af57-ac62-497a-8672-7f6c375af840)
+
+```js
+// CodigoFonte/src/features/dashboard/useWordOfDay.ts
+
+import { useState, useEffect } from "react";
+import { dataService } from "../../services/dataService";
+import { Term } from "../../services/dataService";
+
+export function useWordOfDay() {
+    const palavras = [
+    "Framework",
+    "Compilador",
+    "API",
+    "Hook",
+    "Endpoint",
+    "Algoritmo",
+    "Variável",
+    "Classe",
+    "Objeto",
+    "Deploy",
+  ];
+  const [palavra, setPalavra] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
+
+
+  useEffect(() => {
+    // Pega o dia atual do ano (0–365)
+    const hoje = new Date();
+    const diaDoAno = Math.floor(
+      (hoje.getTime() - new Date(hoje.getFullYear(), 0, 0).getTime()) /
+        (1000 * 60 * 60 * 24)
+    );
+
+    // Seleciona a palavra com base no dia
+    const palavraSelecionada = palavras[diaDoAno % palavras.length];
+
+    setPalavra(palavraSelecionada);
+    setLoading(false);
+  }, []);
+
+  return { palavra, loading };
+}
+
+```
+---
+
+# Testes Unitários: **useWordOfDay**
+
+**Ferramentas:** Vitest + React Testing Library (Ambiente JSDOM)
+
+### **Estratégia:**
+
+O hook foi testado de forma isolada, sem dependências externas e sem Firebase.
+Mockamos a data do sistema para garantir resultados determinísticos e verificamos o comportamento do estado (`palavra` e `loading`) em diferentes cenários.
+
+### **Casos de Teste:**
+
+* **Estado Inicial:**
+  Confere se `loading` inicia como `true` e `palavra` inicia como `null`.
+
+* **Palavra Selecionada:**
+  Após simular a execução do efeito, valida se o hook retorna corretamente uma palavra presente na lista interna.
+
+* **Datas Diferentes:**
+  Simula três dias distintos e verifica se cada data gera automaticamente uma palavra correspondente (cálculo baseado no dia do ano).
+
+### **Execução:**
+
+Rode:
+
+```bash
+npm run test
+```
+
+### **Resultado Esperado:**
+
+```
+ ✓ src/features/dashboard/useWordOfDay.test.ts (3 tests)
+   ✓ deve iniciar com loading e palavra nula
+   ✓ deve gerar a palavra do dia corretamente
+   ✓ deve gerar palavras diferentes para dias diferentes
+
+ Test Files  1 passed (1)
+ PASS  Waiting for file changes...
+```
 
 ---
 
