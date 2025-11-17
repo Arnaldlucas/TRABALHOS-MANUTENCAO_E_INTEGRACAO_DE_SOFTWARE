@@ -1,78 +1,98 @@
 # Planejamento da Manutenção Evolutiva (TP4)
 
-**Trabalho:** TP4 - Redesign e Manutenção Evolutiva
 **Projeto:** MindTranslate
 **Equipe:** Arnald, Nivaldo, João Victor, Victor Gabriel, Illgner
 
 ---
 
-## 1. Visão da Evolução
+## 1. Nossa Visão para esta Evolução
 
-A manutenção evolutiva deste TP foi planejada não apenas para "adicionar funcionalidades", mas para **amadurecer o produto** em pilares críticos de engenharia: Valor de Produto, Conformidade Legal, Segurança e Manutenibilidade.
+Para este trabalho, nossa meta vai além de apenas adicionar novas "features". Estamos focados em **amadurecer o MindTranslate como um produto real**.
 
-Este plano define as **três novas funcionalidades**  e as **duas evoluções arquiteturais** que servem de alicerce para elas.
-
----
-
-## 2. Funcionalidade 1: "Palavra do Dia" (Evolução de Interface e Engajamento)
-
-### 2.1. Definição da Funcionalidade
-
-Esta funcionalidade consiste em adicionar um novo componente de UI diretamente no `DashBoard.jsx`.
-
-1.  **UI:** Um novo card "Palavra do Dia" será exibido no topo do Dashboard.
-2.  **Lógica:** O `dataService.js` terá uma nova função `getWordOfTheDay()`.
-3.  **Funcionamento:** A função buscará um termo aleatório da coleção `terms` e o manterá em cache (ex: `localStorage` ou `sessionStorage`) por 24 horas, para que a palavra seja a mesma para o usuário durante todo o dia.
-
-### 2.2. Justificativa (Relevância e Coerência)
-
-* **Melhoria de Experiência (UI):** Esta é uma evolução focada na interface. Ela torna o Dashboard, a página principal, mais dinâmica e menos estática.
-* **Coerência:** Reforça o objetivo central do app (aprender termos) de forma passiva e contínua.
-* **Engajamento:** É um gancho de retenção clássico, incentivando o usuário a abrir o aplicativo diariamente para "ver a palavra de hoje".
+Isso significa que cada mudança foi pensada para fortalecer o projeto em quatro pilares essenciais:
+1.  **Valor ao Usuário:** Tornar o app mais útil e engajante.
+2.  **Segurança:** Proteger os dados dos nossos usuários.
+3.  **Conformidade:** Respeitar as boas práticas e a lei (LGPD).
+4.  **Manutenibilidade:** Garantir que o projeto seja estável e fácil de melhorar no futuro.
 
 ---
 
-## 3. Funcionalidade 2: Algoritmo de Repetição Espaçada (Evolução de Produto)
+## 2. Nosso Plano de Ação em Fases
 
-### 3.1. Definição da Funcionalidade
+Para organizar a equipe e garantir uma entrega de qualidade, dividimos o trabalho em duas fases claras: uma de **alicerce** e outra de **construção**.
 
-Esta funcionalidade evolui o `Quiz.jsx` de um teste genérico para um sistema de aprendizado ativo.
+### Fase 1: O Alicerce 
 
-1.  **Novos Atributos no Firestore:** Os termos na coleção `quizProgress` (ou uma nova `termsProgress`) ganharão campos: `easeFactor` (facilidade), `interval` (intervalo de dias) e `nextReviewDate` (próxima revisão).
-2.  **Lógica de Agendamento:** O `dataService` calculará a `nextReviewDate` de cada termo com base no acerto/erro.
-3.  **Novo Modo de "Revisão":** O Dashboard ganhará um botão "Revisar (X) termos" que iniciará um quiz focado *apenas* nos termos prontos para revisão.
+O objetivo é fortalecer a fundação do projeto, pagando os débitos técnicos **críticos** e **bloqueadores**.
 
-### 3.2. Justificativa (Relevância e Coerência)
+* **Status:** ⛔ **Ninguém começa a Fase 2 até que esta etapa esteja concluída.**
+* **O que será feito (Arnald):**
+    1.  **Migração para TypeScript (Core):** Migrar os serviços centrais e a "casca" da aplicação (`dataService`, `AuthContext`, `Layout`, `App.tsx`, `main.tsx`, etc.).
+    2.  **Implementar Regras de Segurança (Security Rules):** "Trancar" o banco de dados, garantindo que um usuário só possa editar seus próprios dados.
 
-* **Coerência:** O objetivo do app é "aprender". Um quiz aleatório testa, mas não ensina. A repetição espaçada é o método cientificamente comprovado para retenção de memória, **melhorando significativamente** a eficácia do produto.
-* **Ampliação de Escopo:** O sistema deixa de ser um "glossário com quiz" e se torna uma "ferramenta de estudo inteligente".
+### Fase 2: Evolução Paralela (Toda a Equipe)
+
+Com a base fortalecida, a equipe começa a trabalhar em paralelo.
+
+#### 1. Funcionalidade: "Palavra do Dia"
+* **O que é?** Um novo card no painel principal que mostra uma palavra aleatória do glossário por dia.
+* **Por que?** É um gancho de **engajamento** que incentiva o uso diário.
+* **Critérios de Aceite (MVP):**
+    1.  Um novo *hook* `useWordOfDay.ts` é criado (para evitar conflitos no `dataService`).
+    2.  O *hook* busca **um** termo aleatório da coleção `terms`.
+    3.  A palavra é cacheada no `sessionStorage` (cache simples) para não mudar a cada *refresh*.
+    4.  Um novo card exibe a palavra no `DashBoard.tsx`.
+* **Responsável:** João Victor
+
+#### 2. Funcionalidade: Repetição Espaçada (Lógica Base)
+* **O que é?** Uma lógica que identifica quais termos o usuário precisa revisar.
+* **Por que?** É a evolução **mais importante** do produto, tornando-o uma ferramenta de estudo inteligente.
+* **Critérios de Aceite (MVP):**
+    1.  Um novo *hook* `useSpacedRepetition.ts` é criado.
+    2.  O *hook* **lê** o histórico do `dataService.fetchProgressSummary()`.
+    3.  A lógica de revisão será **simples (MVP)**: "Termos com % de acerto < 50% nos últimos 3 quizzes". **Não** implementar algoritmos complexos (ex: SM-2).
+    4.  A UI na página `Progresso.tsx` é atualizada para mostrar "Você tem **X** termos para revisar."
+* **Responsável:** Illgner
+
+#### 3. Funcionalidade: Exclusão de Conta (LGPD)
+* **O que é?** Um botão no perfil que permite ao usuário deletar permanentemente sua conta e dados.
+* **Por que?** Garante nossa **conformidade com a LGPD** e respeita o "direito de ser esquecido" do usuário.
+* **Critérios de Aceite (MVP):**
+    1.  Um novo *hook* `useDeleteAccount.ts` é criado.
+    2.  A página `Perfil.tsx` tem um "botão de perigo" (vermelho).
+    3.  Ao clicar, um `window.confirm()` (simples) é usado para confirmar a ação.
+    4.  O *hook* chama as funções necessárias do `dataService` para deletar o usuário do Auth e do Firestore.
+* **Responsável:** Victor Gabriel
+
+#### 4. Melhoria: Acessibilidade (A11y) no Quiz
+* **O que é?** Refatorar o Quiz para ser 100% usável via teclado.
+* **Por que?** Garante que o app seja **inclusivo**, corrigindo um *bug* crítico que exclui usuários.
+* **Critérios de Aceite (MVP):**
+    1.  O componente `Quiz.tsx` é refatorado: os `<li>` de resposta viram elementos `<button>`.
+    2.  A navegação com a tecla `Tab` entre as opções deve funcionar.
+    3.  A seleção com as teclas `Enter` ou `Espaço` deve funcionar.
+    4.  Deve haver um indicador de foco visível (ex: `focus:ring`) ao navegar com `Tab`.
+* **Responsável:** Nivaldo
 
 ---
 
-## 4. Funcionalidade 3: Exclusão de Conta (Evolução de Conformidade)
+## 3. Nosso Processo de Trabalho
 
-### 4.1. Definição da Funcionalidade
-
-Esta funcionalidade garante a conformidade com o "direito de ser esquecido" da LGPD, uma continuação do trabalho de consentimento do TP anterior.
-
-1.  **UI:** Um botão "Excluir minha conta" será adicionado à página `Perfil.jsx`, protegido por um modal de confirmação.
-2.  **Lógica:** O `dataService` orquestrará a exclusão em duas partes: (A) Deletar o registro do usuário no `Firebase Authentication` e (B) Deletar o documento do usuário no `Firestore`.
-
-### 4.2. Justificativa (Relevância e Coerência)
-
-* **Relevância:** É uma evolução de conformidade legal. Coletar dados de usuários sem oferecer um mecanismo de exclusão é uma violação de confiança e da LGPD.
-* **Ampliação de Escopo:** Adiciona um ciclo de vida completo ao usuário (Criar, Usar, Excluir), amadurecendo o produto.
+1.  **Trabalho Isolado (Branches)**
+2.  **Revisão por Pares (Pull Requests)**
+3.  **Prevenção de Conflitos (Estratégia de Hooks)**
 
 ---
 
-## 5. Evoluções Arquiteturais de Suporte
+## 4. Papéis da Equipe (Reforçado)
 
-Para implementar as funcionalidades acima, as seguintes evoluções de arquitetura são **necessárias**:
+* **Tech Lead (Arnald):**
+    * Responsável por executar a **Fase 1 (Alicerce)**.
+    * Garantir a integração final de todo o trabalho (resolver merges se necessário).
+    * Consolidar a documentação final do `registro-das-implementação.md` e `CHANGELOG.md`.
 
-### 5.1. Evolução Arquitetural 1: Implementação de Firestore Security Rules
-
-* **Justificativa:** Não podemos, em sã consciência, adicionar lógica de escrita (Repetição Espaçada, Exclusão) sem antes trancar o banco de dados. Um dev sênior *se recusa* a construir em terreno inseguro. Esta evolução garante que um usuário só possa modificar seus *próprios* dados.
-
-### 5.2. Evolução Arquitetural 2: Migração Completa para TypeScript
-
-* **Justificativa:** O projeto é um híbrido instável de JS (`Quiz.jsx`) e TS (`AuthContext.tsx`). Este é o maior débito técnico do projeto. A manutenção evolutiva *exige* pagar essa dívida, garantindo que todo o *codebase* seja tipado, seguro e manutenível.
+* **Desenvolvedores (Nivaldo, João Victor, Victor Gabriel, Illgner):**
+    * **Tarefa 0:** Migrar a página principal da sua *feature* para `.tsx` (ex: `Quiz.jsx` -> `Quiz.tsx`) como seu primeiro *commit*.
+    * Responsáveis por executar suas funcionalidades (Fase 2) de acordo com os **Critérios de Aceite (MVP)**.
+    * **(Novo)** Escrever um teste unitário básico para a lógica de *hook* criada (ex: `useWordOfDay.test.ts`).
+    * Participar ativamente da revisão de código (Pull Requests) dos colegas.
