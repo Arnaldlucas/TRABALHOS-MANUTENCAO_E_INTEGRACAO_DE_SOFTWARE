@@ -1,5 +1,6 @@
 // DashBoard.jsx (Código corrigido)
 
+import { useWordOfDay } from "../features/dashboard/useWordOfDay.ts";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
@@ -33,6 +34,8 @@ const staticCards = [
 ];
 
 export default function DashBoard() {
+  const { palavra, loading: loadingWord } = useWordOfDay();
+
   const { currentUser } = useAuth();
   const [quizzesFeitos, setQuizzesFeitos] = useState(0);
   
@@ -137,6 +140,30 @@ export default function DashBoard() {
             </Link>
           ))}
         </section>
+          <h3>
+            .
+          </h3>
+        <div
+            className="flex flex-col items-center text-center bg-white/70 backdrop-blur-sm p-8 rounded-2xl shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300"
+          >
+            <div className="bg-blue-100 p-4 rounded-full mb-4">
+              <BookOpen className="text-blue-500 w-8 h-8" />
+            </div>
+
+            <h3 className="text-xl font-semibold mb-2 text-gray-900">
+              Palavra do Dia
+            </h3>
+
+            {loadingWord ? (
+              <p className="text-gray-600 text-sm leading-relaxed tracking-wide">
+                Carregando...
+              </p>
+            ) : (
+              <p className="text-gray-800 text-lg font-bold">
+                {palavra || "Nenhuma palavra disponível"}
+              </p>
+            )}
+          </div>
 
         {/* 3. Botão "Comece a aprender" agora está aqui, abaixo dos cards */}
         <section className="mt-16 text-center">
