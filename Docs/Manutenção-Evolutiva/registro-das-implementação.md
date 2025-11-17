@@ -4,12 +4,6 @@ Este documento registra o "Antes e Depois" de cada funcionalidade e melhoria imp
 
 ---
 
-# Registro de Implementação da Manutenção Evolutiva (TP4)
-
-Este documento registra o "Antes e Depois" de cada funcionalidade e melhoria implementada, servindo como evidência técnica do trabalho realizado.
-
----
-
 ## 1. Melhoria de Acessibilidade (A11y): Contraste e Rótulos
 
 * **Responsável:** Arnald 
