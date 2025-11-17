@@ -64,6 +64,29 @@ Migrei a página de Perfil para TypeScript (.tsx) e implementei a funcionalidade
 
 <img width="1591" height="957" alt="Perfil-depois-2" src="https://github.com/user-attachments/assets/699841d4-9bdd-44fe-a9eb-1554702a3ead" />
 
+### Testes Unitários: `useDeleteAccount`
+
+**Ferramentas:** Vitest + React Testing Library (Ambiente JSDOM).
+
+**Estratégia:** Utilizamos **Mocks** para simular o Firebase (Auth e Firestore), o Router e o AuthContext, isolando a lógica e impedindo a exclusão de dados reais.
+
+**Casos de Teste:**
+1.  **Sucesso:** Verifica se `deleteDoc`, `deleteUser` e `logout` são chamados e se ocorre o redirecionamento para `/login`.
+2.  **Erro:** Simula uma falha de conexão e valida se o sistema captura o erro sem redirecionar.
+
+**Execução:**
+Rode `npm run test`.
+
+**Resultado Esperado:**
+```text
+ ✓ src/features/profile/useDeleteAccount.test.ts (2 tests)
+   ✓ deve deletar a conta com sucesso e redirecionar
+   ✓ deve lidar com erros durante a exclusão
+
+ Test Files  1 passed (1)
+ PASS  Waiting for file changes...
+```
+
 ---
 
 ## 4. Funcionalidade 3: Repetição Espaçada (Lógica Base)
