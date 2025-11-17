@@ -1,98 +1,125 @@
 # Planejamento da Manutenção Evolutiva (TP4)
 
-**Projeto:** MindTranslate
-**Equipe:** Arnald, Nivaldo, João Victor, Victor Gabriel, Illgner
+**Projeto:** MindTranslate  
+**Equipe:** Arnald, Nivaldo, João Victor, Victor Gabriel, Illgner  
 
 ---
 
 ## 1. Nossa Visão para esta Evolução
 
-Para este trabalho, nossa meta vai além de apenas adicionar novas "features". Estamos focados em **amadurecer o MindTranslate como um produto real**.
+Para este trabalho, nossa meta vai além de apenas adicionar novas _features_. Estamos focados em amadurecer o **MindTranslate** como um produto real.
 
-Isso significa que cada mudança foi pensada para fortalecer o projeto em quatro pilares essenciais:
-1.  **Valor ao Usuário:** Tornar o app mais útil e engajante.
-2.  **Segurança:** Proteger os dados dos nossos usuários.
-3.  **Conformidade:** Respeitar as boas práticas e a lei (LGPD).
-4.  **Manutenibilidade:** Garantir que o projeto seja estável e fácil de melhorar no futuro.
+Cada mudança foi planejada para fortalecer o projeto nos seguintes pilares:
+
+- **Valor ao Usuário:** Tornar o app mais útil e engajante.  
+- **Segurança:** Proteger os dados dos nossos usuários.  
+- **Conformidade:** Respeitar boas práticas e leis como a LGPD.  
+- **Manutenibilidade:** Garantir que o projeto seja estável e fácil de melhorar no futuro.  
 
 ---
 
 ## 2. Nosso Plano de Ação em Fases
 
-Para organizar a equipe e garantir uma entrega de qualidade, dividimos o trabalho em duas fases claras: uma de **alicerce** e outra de **construção**.
+Dividimos o trabalho em duas fases estratégicas: **Alicerce** e **Evolução**.
 
-### Fase 1: O Alicerce 
+---
 
-O objetivo é fortalecer a fundação do projeto, pagando os débitos técnicos **críticos** e **bloqueadores**.
+### 🧱 Fase 1: O Alicerce
 
-* **Status:** ⛔ **Ninguém começa a Fase 2 até que esta etapa esteja concluída.**
-* **O que será feito (Arnald):**
-    1.  **Migração para TypeScript (Core):** Migrar os serviços centrais e a "casca" da aplicação (`dataService`, `AuthContext`, `Layout`, `App.tsx`, `main.tsx`, etc.).
-    2.  **Implementar Regras de Segurança (Security Rules):** "Trancar" o banco de dados, garantindo que um usuário só possa editar seus próprios dados.
+**Objetivo:** Fortalecer a base do projeto, eliminando débitos técnicos críticos.
 
-### Fase 2: Evolução Paralela (Toda a Equipe)
+**Status:** ⛔ Concluído
 
-Com a base fortalecida, a equipe começa a trabalhar em paralelo.
+**Tarefas (Arnald):**
 
-#### 1. Funcionalidade: "Palavra do Dia"
-* **O que é?** Um novo card no painel principal que mostra uma palavra aleatória do glossário por dia.
-* **Por que?** É um gancho de **engajamento** que incentiva o uso diário.
-* **Critérios de Aceite (MVP):**
-    1.  Um novo *hook* `useWordOfDay.ts` é criado (para evitar conflitos no `dataService`).
-    2.  O *hook* busca **um** termo aleatório da coleção `terms`.
-    3.  A palavra é cacheada no `sessionStorage` (cache simples) para não mudar a cada *refresh*.
-    4.  Um novo card exibe a palavra no `DashBoard.tsx`.
-* **Responsável:** João Victor
+- **Migração para TypeScript (Core):**  
+  Migrar serviços centrais e infraestrutura da aplicação — `dataService`, `AuthContext`, `Layout`, `App.tsx`, `main.tsx`, etc.
 
-#### 2. Funcionalidade: Repetição Espaçada (Lógica Base)
-* **O que é?** Uma lógica que identifica quais termos o usuário precisa revisar.
-* **Por que?** É a evolução **mais importante** do produto, tornando-o uma ferramenta de estudo inteligente.
-* **Critérios de Aceite (MVP):**
-    1.  Um novo *hook* `useSpacedRepetition.ts` é criado.
-    2.  O *hook* **lê** o histórico do `dataService.fetchProgressSummary()`.
-    3.  A lógica de revisão será **simples (MVP)**: "Termos com % de acerto < 50% nos últimos 3 quizzes". **Não** implementar algoritmos complexos (ex: SM-2).
-    4.  A UI na página `Progresso.tsx` é atualizada para mostrar "Você tem **X** termos para revisar."
-* **Responsável:** Illgner
+- **Regras de Segurança (Security Rules):**  
+  “Trancar” o banco de dados para que cada usuário só edite seus próprios dados.
 
-#### 3. Funcionalidade: Exclusão de Conta (LGPD)
-* **O que é?** Um botão no perfil que permite ao usuário deletar permanentemente sua conta e dados.
-* **Por que?** Garante nossa **conformidade com a LGPD** e respeita o "direito de ser esquecido" do usuário.
-* **Critérios de Aceite (MVP):**
-    1.  Um novo *hook* `useDeleteAccount.ts` é criado.
-    2.  A página `Perfil.tsx` tem um "botão de perigo" (vermelho).
-    3.  Ao clicar, um `window.confirm()` (simples) é usado para confirmar a ação.
-    4.  O *hook* chama as funções necessárias do `dataService` para deletar o usuário do Auth e do Firestore.
-* **Responsável:** Victor Gabriel
+---
 
-#### 4. Melhoria: Acessibilidade (A11y) no Quiz
-* **O que é?** Refatorar o Quiz para ser 100% usável via teclado.
-* **Por que?** Garante que o app seja **inclusivo**, corrigindo um *bug* crítico que exclui usuários.
-* **Critérios de Aceite (MVP):**
-    1.  O componente `Quiz.tsx` é refatorado: os `<li>` de resposta viram elementos `<button>`.
-    2.  A navegação com a tecla `Tab` entre as opções deve funcionar.
-    3.  A seleção com as teclas `Enter` ou `Espaço` deve funcionar.
-    4.  Deve haver um indicador de foco visível (ex: `focus:ring`) ao navegar com `Tab`.
-* **Responsável:** Nivaldo
+### 🚀 Fase 2: Evolução Paralela
+
+A partir da base sólida, a equipe avança em paralelo para implementar novas funcionalidades e melhorias.
+
+---
+
+#### 1. Funcionalidade: “Palavra do Dia”
+
+- **O que é:**  
+  Um card no Dashboard exibindo uma palavra aleatória do glossário a cada dia.
+
+- **Por que:**  
+  Aumenta o engajamento diário.
+
+- **Critérios de Aceite (MVP):**
+  - Criar um hook `useWordOfDay.ts`
+  - Buscar um termo aleatório da coleção `terms`
+  - Cachear no `sessionStorage` (cache simples) para manter por sessão
+  - Renderizar no `DashBoard.tsx`
+
+- **Responsável:** João Victor  
+
+---
+
+#### 2. Funcionalidade: Exclusão de Conta (LGPD)
+
+- **O que é:**  
+  Um botão no perfil que permite ao usuário deletar permanentemente sua conta e dados.
+
+- **Por que:**  
+  Conformidade com a LGPD ("direito de ser esquecido").
+
+- **Critérios de Aceite (MVP):**
+  - Criar o hook `useDeleteAccount.ts`
+  - Página `Perfil.tsx` contém botão vermelho de exclusão
+  - Confirmar ação com `window.confirm()`
+  - Hook remove dados do Auth e Firestore via `dataService`
+
+- **Responsável:** Victor Gabriel  
+
+---
+
+#### 3. Melhoria: Acessibilidade (A11y) – Contraste e Rótulos (WCAG)
+
+- **O que é:**  
+  Auditoria com Axe DevTools para resolver falhas críticas de acessibilidade.
+
+- **Por que:**  
+  Garante que o app seja inclusivo, especialmente para usuários com baixa visão ou que dependem de leitores de tela.
+
+- **Critérios de Aceite (MVP):**
+  - Corrigir contraste de botões (`Progresso.tsx` — de `bg-green-600` para `bg-green-800`)
+  - Adicionar `aria-label` em botões de ícone (`Perfil`, `Menu` em `Layout.tsx`)
+  - Auditoria Axe DevTools deve reportar **0 issues críticas**
+
+- **Responsável:** Arnald  
 
 ---
 
 ## 3. Nosso Processo de Trabalho
 
-1.  **Trabalho Isolado (Branches)**
-2.  **Revisão por Pares (Pull Requests)**
-3.  **Prevenção de Conflitos (Estratégia de Hooks)**
+- 🧩 **Trabalho Isolado** (Branches individuais)  
+- 🔄 **Revisão por Pares** (Pull Requests)  
+- 🚫 **Prevenção de Conflitos** (estratégia de hooks isolados)
 
 ---
 
-## 4. Papéis da Equipe (Reforçado)
+## 4. Papéis da Equipe (Reforço)
 
-* **Tech Lead (Arnald):**
-    * Responsável por executar a **Fase 1 (Alicerce)**.
-    * Garantir a integração final de todo o trabalho (resolver merges se necessário).
-    * Consolidar a documentação final do `registro-das-implementação.md` e `CHANGELOG.md`.
+### 👨‍💻 Tech Lead (Arnald)
 
-* **Desenvolvedores (Nivaldo, João Victor, Victor Gabriel, Illgner):**
-    * **Tarefa 0:** Migrar a página principal da sua *feature* para `.tsx` (ex: `Quiz.jsx` -> `Quiz.tsx`) como seu primeiro *commit*.
-    * Responsáveis por executar suas funcionalidades (Fase 2) de acordo com os **Critérios de Aceite (MVP)**.
-    * **(Novo)** Escrever um teste unitário básico para a lógica de *hook* criada (ex: `useWordOfDay.test.ts`).
-    * Participar ativamente da revisão de código (Pull Requests) dos colegas.
+- Executa a **Fase 1** (Alicerce)  
+- Executa a **melhoria de acessibilidade** (contraste/rótulos)  
+- Integra todo o trabalho e documenta no `registro-das-implementação.md`  
+
+### 🧑‍💻 Desenvolvedores (João Victor, Victor Gabriel)
+
+- Migrar a página da funcionalidade para `.tsx` como 1º commit  
+- Desenvolver suas features conforme o MVP  
+- Criar teste unitário para seu hook (ex: `useDeleteAccount.test.ts`)  
+- Participar ativamente das revisões (PRs)
+
+---
