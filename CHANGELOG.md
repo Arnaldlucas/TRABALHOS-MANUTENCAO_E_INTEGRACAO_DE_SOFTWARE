@@ -2,19 +2,19 @@
 
 Todo o desenvolvimento notável neste projeto será documentado neste arquivo. O formato é baseado em [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
-
-O que é o "Keep a Changelog"?
-É simplesmente um padrão de escrita para organizar o histórico de mudanças de um projeto. A ideia principal é facilitar a vida de quem lê. Em vez de apenas listar o que foi feito, você agrupa as mudanças em categorias, como:
-
-Added: Para funcionalidades novas (como as que você implementou).
-
-Changed: Para mudanças em funcionalidades existentes.
-
-Fixed: Para correção de bugs.
-
-Removed: Para funcionalidades que foram removidas.
-
 ## [Unreleased]
+
+## [1.2.0] - 2025-11-17 (Manutenção Evolutiva - TP4)
+
+### Added
+- **Funcionalidade "Palavra do Dia":** Novo card no Dashboard que exibe um termo técnico aleatório diariamente para aumentar o engajamento.
+- **Exclusão de Conta (LGPD):** Nova opção na página de Perfil permitindo que o usuário delete permanentemente sua conta e dados pessoais.
+- **Regras de Segurança (Firestore):** Implementação de `firestore.rules` para garantir isolamento de dados entre usuários.
+
+### Changed
+- **Migração para TypeScript:** Todo o código base (`src/`) foi migrado de JavaScript (`.jsx`) para TypeScript (`.tsx`) para aumentar a segurança de tipagem e manutenibilidade.
+- **Melhoria de Acessibilidade (A11y):** - Ajuste de contraste em botões de ação (verde escuro) para atender ao padrão WCAG AA.
+    - Adição de `aria-label` em botões de ícone para suporte a leitores de tela.
 
 ## [1.1.0] - 2025-10-01
 
