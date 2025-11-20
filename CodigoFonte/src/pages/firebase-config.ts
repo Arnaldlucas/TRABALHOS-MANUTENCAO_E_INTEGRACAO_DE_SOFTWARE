@@ -1,7 +1,4 @@
-// ARQUIVO: CodigoFonte/src/pages/firebase-config.ts (Migrado)
-
 import { initializeApp } from "firebase/app";
-// Importe os Tipos de Auth e Firestore
 import { getAuth, Auth } from "firebase/auth";
 import { getFirestore, Firestore } from "firebase/firestore";
 

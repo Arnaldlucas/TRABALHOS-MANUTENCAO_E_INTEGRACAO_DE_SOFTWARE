@@ -1,154 +1,149 @@
-// DashBoard.jsx (Código corrigido)
-
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { NavLink, Link, Outlet } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
-import { db } from "./firebase-config";
-import { doc, getDoc, collection, getDocs } from "firebase/firestore"; // Importe 'doc' e 'getDoc'
-import { BookOpen, HelpCircle, BarChart3, Loader } from "lucide-react";
+import {
+  BookOpen,
+  HelpCircle,
+  BarChart3,
+  User,
+  LogOut,
+  Brain,
+  Menu,
+  X,
+} from "lucide-react";
 
-// O array de cards agora é a nossa única fonte para os cards.
-const staticCards = [
-  {
-    id: "termos",
-    title: "Tradução de Termos",
-    desc: "Aprenda a tradução de palavras técnicas do código com exemplos práticos.",
-    to: "/termos",
-    icon: <BookOpen className="text-blue-500 w-8 h-8" />,
-  },
-  {
-    id: "quiz",
-    title: "Quiz Interativo",
-    desc: "Teste seus conhecimentos com quizzes rápidos e divertidos.",
-    to: "/quiz",
-    icon: <HelpCircle className="text-blue-500 w-8 h-8" />,
-  },
-  {
-    id: "progresso",
-    title: "Progressão de Aprendizado",
-    desc: "Acompanhe seu progresso com relatórios e estatísticas.",
-    to: "/progresso",
-    icon: <BarChart3 className="text-blue-500 w-8 h-8" />,
-  },
-];
+const NavItem = ({ to, icon: Icon, children, onClick }) => (
+  <NavLink
+    to={to}
+    onClick={onClick}
+    className={({ isActive }) =>
+      `flex items-center gap-2 p-2 rounded-md hover:bg-gray-100 hover:text-blue-600 transition-colors ${
+        isActive ? "bg-blue-50 text-blue-600 font-semibold" : "text-gray-700"
+      }`
+    }
+  >
+    {Icon && <Icon size={20} />}
+    {children}
+  </NavLink>
+);
 
-export default function DashBoard() {
-  const { currentUser } = useAuth();
-  const [quizzesFeitos, setQuizzesFeitos] = useState(0);
-  
-  // ✅ NOVO: Adiciona um estado para armazenar o nome do usuário vindo do Firestore
-  const [userName, setUserName] = useState("Usuário");
-  const [loading, setLoading] = useState(true);
+export default function Layout() {
+  const { currentUser, logout } = useAuth();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  // ✅ NOVO: useEffect para buscar o nome do usuário no Firestore
+  // ---- MODO DALTÔNICO ----
+  const [colorMode, setColorMode] = useState("normal");
+
   useEffect(() => {
-    const fetchUserName = async () => {
-      if (!currentUser) {
-        setLoading(false);
-        return;
-      }
-      try {
-        const docRef = doc(db, "users", currentUser.uid);
-        const docSnap = await getDoc(docRef);
+    const saved = localStorage.getItem("colorMode") || "normal";
+    setColorMode(saved);
+    document.documentElement.classList.toggle("daltonico", saved === "daltonico");
+  }, []);
 
-        if (docSnap.exists()) {
-          // Se o documento existe, pega o nome e atualiza o estado
-          setUserName(docSnap.data().name);
-        } else {
-          console.log("Nenhum nome encontrado no Firestore.");
-          // Mantém o nome padrão "Usuário"
-        }
-      } catch (err) {
-        console.error("Erro ao buscar o nome:", err);
-      } finally {
-        setLoading(false);
-      }
-    };
+  const toggleColorMode = () => {
+    const newMode = colorMode === "normal" ? "daltonico" : "normal";
+    setColorMode(newMode);
+    document.documentElement.classList.toggle("daltonico", newMode === "daltonico");
+    localStorage.setItem("colorMode", newMode);
+  };
 
-    fetchUserName();
-  }, [currentUser]);
+  const handleLogout = async () => {
+    try {
+      await logout();
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
-  // A lógica de fetch dos quizzes foi simplificada.
-  useEffect(() => {
-    const fetchProgressSummary = async () => {
-      if (!currentUser) return;
-      const progressCollectionRef = collection(db, "users", currentUser.uid, "quizProgress");
-      const querySnapshot = await getDocs(progressCollectionRef);
-      setQuizzesFeitos(querySnapshot.size);
-    };
-    fetchProgressSummary();
-  }, [currentUser]);
+  if (!currentUser) return null;
 
-  // ❌ REMOVIDO: A variável 'firstName' não é mais necessária, pois vamos usar 'userName'
-  // const firstName = currentUser?.displayName?.split(" ")[0] || currentUser?.email.split("@")[0] || "Usuário";
-
-  if (loading) {
-    return (
-      <div className="flex justify-center items-center min-h-screen">
-        <Loader className="animate-spin text-blue-600" size={40} />
-      </div>
-    );
-  }
-
-  const quizMessage =
-    quizzesFeitos === 0
-      ? "Explore as seções abaixo para começar sua jornada no mundo da programação."
-      : quizzesFeitos === 1
-      ? "Você já completou 1 quiz. Continue seu aprendizado!"
-      : `Você já completou ${quizzesFeitos} quizzes. Continue seu aprendizado!`;
+  const userFirstName =
+    currentUser.displayName?.split(" ")[0] || currentUser.email.split("@")[0];
 
   return (
-    <div className="relative w-full min-h-full bg-blue-50 overflow-hidden">
-      
-      {/* 1. Imagem de fundo agora está 50% mais transparente (opacity-10) */}
-      <img
-        src="/welcome-illustration.svg"
-        alt=""
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] max-w-4xl opacity-10 z-0 pointer-events-none"
-        aria-hidden="true"
-      />
+    <div className="min-h-screen flex flex-col text-gray-800">
+      <header className="bg-white/80 backdrop-blur-sm shadow-sm fixed top-0 w-full z-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between">
+          <Link to="/dashboard" className="flex items-center space-x-3">
+            <Brain className="text-blue-600 w-8 h-8" />
+            <h1 className="text-xl font-bold">MindTranslate</h1>
+          </Link>
 
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 py-16">
-        
-        {/* Seção de Boas-vindas (sem o botão) */}
-        <section className="text-center mb-16">
-          {/* ✅ CORRIGIDO: Agora usa o estado 'userName' */}
-          <h1 className="text-4xl font-bold mb-2 text-gray-900">
-            Bem-vindo, {userName.split(" ")[0]}!
-          </h1>
-           <p className="text-gray-600 text-lg max-w-2xl mx-auto">{quizMessage}</p>
-        </section>
+          <nav className="hidden md:flex items-center space-x-1">
+            <NavItem to="/dashboard" icon={BarChart3}>Início</NavItem>
+            <NavItem to="/termos" icon={BookOpen}>Termos</NavItem>
+            <NavItem to="/quiz" icon={HelpCircle}>Quiz</NavItem>
+          </nav>
 
-        {/* 2. Seção dos Cards com grid responsivo para 3 itens */}
-        <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {staticCards.map((card) => (
-            <Link
-              to={card.to}
-              key={card.id}
-              className="flex flex-col items-center text-center bg-white/70 backdrop-blur-sm p-8 rounded-2xl shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300"
+          <div className="flex items-center gap-4">
+            
+            {/* BOTÃO DALTÔNICO */}
+            <button
+              onClick={toggleColorMode}
+              className="px-3 py-2 rounded-md bg-blue-600 text-white hover:bg-blue-700 transition"
             >
-              <div className="bg-blue-100 p-4 rounded-full mb-4">
-                {card.icon}
+              {colorMode === "normal" ? "Modo daltônico" : "Modo normal"}
+            </button>
+
+            {/* MENU DO USUÁRIO */}
+            <div className="relative group">
+              <button className="flex items-center space-x-2 p-2 rounded-full hover:bg-gray-200/60 transition">
+                <User size={20} />
+              </button>
+
+              <div
+                className="absolute right-0 mt-2 w-56 bg-white border rounded-md shadow-lg p-2 text-sm
+                invisible opacity-0 group-hover:visible group-hover:opacity-100 transition duration-200 z-30"
+              >
+                <div className="p-2">
+                  <p className="font-semibold truncate">{userFirstName}</p>
+                  <p className="text-gray-500 text-xs truncate">
+                    {currentUser.email}
+                  </p>
+                </div>
+
+                <div className="border-t my-1"></div>
+
+                <NavItem to="/perfil" icon={User}>Meu Perfil</NavItem>
+
+                <button
+                  onClick={handleLogout}
+                  className="flex items-center text-red-500 gap-2 w-full text-left py-2 px-2 hover:bg-gray-100 rounded-md"
+                >
+                  <LogOut size={16} /> Sair
+                </button>
               </div>
-              <h3 className="text-xl font-semibold mb-2 text-gray-900">{card.title}</h3>
-              <p className="text-gray-600 text-sm leading-relaxed tracking-wide flex-grow">
-                {card.desc}
-              </p>
-            </Link>
-          ))}
-        </section>
+            </div>
 
-        {/* 3. Botão "Comece a aprender" agora está aqui, abaixo dos cards */}
-        <section className="mt-16 text-center">
-            <Link
-                to="/termos"
-                className="inline-block px-8 py-3 bg-blue-600 text-white font-bold text-lg rounded-lg hover:bg-blue-700 transition shadow-lg"
-            >
-                Comece a aprender
-            </Link>
-        </section>
-        
-      </div>
+            {/* BOTÃO MENU MOBILE */}
+            <div className="md:hidden">
+              <button
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                className="p-2 rounded-md hover:bg-gray-200/60"
+              >
+                {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {isMobileMenuOpen && (
+          <nav className="md:hidden bg-white border-t p-4 space-y-2">
+            <NavItem to="/dashboard" icon={BarChart3}>Início</NavItem>
+            <NavItem to="/termos" icon={BookOpen}>Termos</NavItem>
+            <NavItem to="/quiz" icon={HelpCircle}>Quiz</NavItem>
+            <NavItem to="/perfil" icon={User}>Meu Perfil</NavItem>
+          </nav>
+        )}
+      </header>
+
+      <main className="flex-1 pt-20">
+        <Outlet />
+      </main>
+
+      <footer className="bg-white border-t py-6 text-center text-sm text-gray-500">
+        © {new Date().getFullYear()} MindTranslate. Todos os direitos reservados.
+      </footer>
     </div>
   );
 }
