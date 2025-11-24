@@ -143,17 +143,17 @@
 ## ✅ Critérios de Aceitação
 
 1. Progresso da pergunta
-  * Exibir: **“Pergunta X de Y”**.
+    * Exibir: **“Pergunta X de Y”**.
 2. Enunciado
-  * Exibir o texto da pergunta carregada.
+    * Exibir o texto da pergunta carregada.
 3. Alternativas
-  * Devem ser clicáveis.
-  * Exibir no mínimo duas.
-  * Exemplo: 4 alternativas exibidas.
+    * Devem ser clicáveis.
+    * Exibir no mínimo duas.
+    * Exemplo: 4 alternativas exibidas.
 4. Interface
-  * Título: **“Quiz Interativo”**
-  * Menu com **Início**, **Termos**, **Quiz**
-  * Card centralizado contendo pergunta + alternativas
+    * Título: **“Quiz Interativo”**
+    * Menu com **Início**, **Termos**, **Quiz**
+    * Card centralizado contendo pergunta + alternativas
 
 ## 🧠 Regras de Negócio
 
