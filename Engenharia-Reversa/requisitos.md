@@ -226,16 +226,16 @@
 ## ✅ Critérios de Aceitação
 
 1. Informações do Usuário
-  * Exibir nome completo
-  * Exibir e-mail
-  * Campos não editáveis
+    * Exibir nome completo
+    * Exibir e-mail
+    * Campos não editáveis
 2. Botão “Sair da Sessão”
-  * Redirecionar para login ao clicar.
+    * Redirecionar para login ao clicar.
 3. Exclusão da Conta
-  * Área destacada em vermelho
-  * Texto “Excluir conta permanentemente.”
-  * Botão com ícone de lixeira
-  * Ação exclui conta
+    * Área destacada em vermelho
+    * Texto “Excluir conta permanentemente.”
+    * Botão com ícone de lixeira
+    * Ação exclui conta
 
 ## 🧠 Regras de Negócio
 
