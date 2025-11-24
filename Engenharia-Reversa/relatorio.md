@@ -31,15 +31,59 @@ O Diagrama de Classes UML (ou notação equivalente) foi utilizado para visualiz
 
 ![Diagrama de Classe - Novo](./img/Classes-novo.jpeg)
 
-O diagrama novo reflete uma arquitetura mais **organizada, limpa e padronizada**, segregando responsabilidades em camadas claras: Fronteira, Controle e Entidade.
+### Após a engenharia reversa:
 
-* **Foco:** Separação de Responsabilidades utilizando os *Stereotypes* **Boundary**, **Control** e **Entity**.
-* **Camadas:**
-    * **Boundary:** Páginas da interface de usuário (`DashboardPage`, `ProfilePage`, `QuizPage`).
-    * **Control/Service:** Serviços de aplicação (`AuthService`, `DataService`) que gerenciam a lógica de negócio e acesso a dados.
-    * **Entity:** Modelos de domínio (`UserProfile`, `Term`, `QuizResult`).
-* **Acesso a Dados:** Introdução do padrão **Facade** (`<<Facade>> DataService`) para encapsular o acesso a todas as entidades, simplificando a interface para as *Boundaries*.
-* **Relações:** As relações são mais formais (`usa`, `retorna`, `identifies`), indicando uma estrutura de dependência mais coesa e menos acoplada à tecnologia de persistência. A autenticação (`AuthService`) é utilizada pelas *Boundaries* e retorna a entidade `UserProfile`.
+- Arquitetura reestruturada em *camadas claras*  
+  - Presentation (páginas)  
+  - Service (serviços dedicados)  
+  - Domain (modelos do Firestore)  
+- Inclusão de *multiplicidades* e papéis  
+- Redução de acoplamento  
+- Melhor definição das fronteiras entre UI, lógica e serviços
+
+---
+
+```javascript
+// src/services/dataService.js
+import { firestore } from "../firebase";
+
+// O DataService concentra TODA a lógica de acesso ao Firestore.
+// Ele representa claramente a "Service Layer" do diagrama.
+const DataService = {
+
+  // --- BUSCA O PERFIL DO USUÁRIO ---
+  // Recebe o UID, acessa a coleção "users" e retorna os dados do documento.
+  fetchUserProfile: async (uid) => {
+    const doc = await firestore.collection("users").doc(uid).get();
+
+    // Se existir, devolve um objeto contendo o ID + dados do Firestore.
+    // Isso corresponde ao retorno "UserProfile" no diagrama.
+    return doc.exists ? { id: doc.id, ...doc.data() } : null;
+  },
+
+
+  // --- BUSCA LISTA DE TERMOS COM PAGINAÇÃO ---
+  // pageSize controla quantos itens vêm por vez.
+  // lastDoc permite carregar a "página seguinte" (scroll infinito).
+  fetchTerms: async (pageSize = 20, lastDoc = null) => {
+
+    // Monta a query inicial: ordenada por 'term' e limitada.
+    let q = firestore.collection("terms").orderBy("term").limit(pageSize);
+
+    // Caso exista um documento anterior, continua a partir dele.
+    if (lastDoc) q = q.startAfter(lastDoc);
+
+    // Executa a busca no Firestore.
+    const snapshot = await q.get();
+
+    // Converte cada documento Firestore → objeto JavaScript
+    // Isso corresponde ao retorno de múltiplos "Term" no diagrama.
+    return snapshot.docs.map(d => ({ id: d.id, ...d.data() }));
+  }
+};
+
+export default DataService;
+```
 
 ### 3.2. Modelagem Comportamental/Interacional
 
