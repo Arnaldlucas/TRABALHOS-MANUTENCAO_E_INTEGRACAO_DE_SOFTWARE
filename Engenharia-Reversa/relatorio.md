@@ -16,6 +16,8 @@ Este relatório documenta o processo de Engenharia Reversa aplicado ao sistema *
 
 A recuperação dos **requisitos funcionais** foi realizada por meio da observação e análise detalhada do código, interface e fluxos do sistema. Os requisitos são apresentados na forma de **Histórias do Usuário**, garantindo que refletem fielmente o que o sistema realmente executa.
 
+[Veja aqui as Histórias do Usuário ](./requisitos.md)
+
 
 ## 3. 🏗️ Modelagem Estrutural e Comportamental
 
