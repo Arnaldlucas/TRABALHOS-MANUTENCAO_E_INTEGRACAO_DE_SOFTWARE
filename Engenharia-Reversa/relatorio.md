@@ -25,8 +25,21 @@ A recuperação dos **requisitos funcionais** foi realizada por meio da observa�
 
 O Diagrama de Classes UML (ou notação equivalente) foi utilizado para visualizar a organização interna do sistema, destacando as **principais classes, atributos, métodos e associações** relevantes.
 
+[Diagrama de Classe - Antigo](./img/Classes-antigo.jpeg)
 
-* **Descrição do Diagrama:** Explicar as classes centrais e como elas se relacionam (associações, heranças, etc.).
+### Novo Diagrama de Classes
+
+![Diagrama de Classe - Novo](./img/Classes-novo.jpeg)
+
+O diagrama novo reflete uma arquitetura mais **organizada, limpa e padronizada**, segregando responsabilidades em camadas claras: Fronteira, Controle e Entidade.
+
+* **Foco:** Separação de Responsabilidades utilizando os *Stereotypes* **Boundary**, **Control** e **Entity**.
+* **Camadas:**
+    * **Boundary:** Páginas da interface de usuário (`DashboardPage`, `ProfilePage`, `QuizPage`).
+    * **Control/Service:** Serviços de aplicação (`AuthService`, `DataService`) que gerenciam a lógica de negócio e acesso a dados.
+    * **Entity:** Modelos de domínio (`UserProfile`, `Term`, `QuizResult`).
+* **Acesso a Dados:** Introdução do padrão **Facade** (`<<Facade>> DataService`) para encapsular o acesso a todas as entidades, simplificando a interface para as *Boundaries*.
+* **Relações:** As relações são mais formais (`usa`, `retorna`, `identifies`), indicando uma estrutura de dependência mais coesa e menos acoplada à tecnologia de persistência. A autenticação (`AuthService`) é utilizada pelas *Boundaries* e retorna a entidade `UserProfile`.
 
 ### 3.2. Modelagem Comportamental/Interacional
 
@@ -77,7 +90,7 @@ O diagrama detalha o fluxo interacional que um **Usuário** percorre dentro do s
 
 Os padrões arquiteturais identificados focam na modularidade do Frontend e na utilização eficiente dos serviços do BaaS.
 
-![Dagrama Arquitetural](./img/MindTranslate_Diagrama_Arquitetural_Illgner.jpg)
+![Diagrama de Arquitetura](./img/MindTranslate_Diagrama_Arquitetural_Illgner.jpg)
 
 ### Padrão Repository (ou Service Layer)
 
