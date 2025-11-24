@@ -77,7 +77,7 @@ O diagrama detalha o fluxo interacional que um **Usuário** percorre dentro do s
 
 Os padrões arquiteturais identificados focam na modularidade do Frontend e na utilização eficiente dos serviços do BaaS.
 
-![alt text](./img/MindTranslate_Diagrama_de_Arquitetura_Illgner.jpg)
+![Dagrama Arquitetural](MindTranslate_Diagrama_Arquitetural_Illgner.jpg)
 
 ### Padrão Repository (ou Service Layer)
 
